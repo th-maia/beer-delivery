@@ -5,7 +5,7 @@ const { loginRoute } = require('./routes/Login.route');
 const handle = (error, _req, res, next) => {
   res.status(error.status || 500).json({ message: error.message });
   next();
-}
+};
 
 const app = express();
 app.use(express.json());

@@ -1,5 +1,5 @@
-const { User } = require('../../database/models/index');
 const md5 = require('md5');
+const { User } = require('../../database/models/index');
 const { generateToken } = require('../utils/JWT');
 const CustomHttpError = require('../middlewares/CustomHttpError');
 
@@ -20,7 +20,7 @@ const getUser = async (email, pass) => {
     email: user.email,
     role: user.role,
     token,
-  }
-}
+  };
+};
 
 module.exports = { getUser };

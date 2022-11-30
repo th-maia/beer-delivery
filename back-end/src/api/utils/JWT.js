@@ -13,6 +13,6 @@ const generateToken = async (payload) => jwt.sign(payload, JWT_SECRET, jwtConfig
 const userJWT = async (token) => {
     const decoded = jwt.decode(token, JWT_SECRET);
     return decoded;
-}
+};
 
 module.exports = { generateToken, userJWT };
