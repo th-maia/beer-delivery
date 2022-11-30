@@ -1,13 +1,16 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001';
+const api = axios.create({
+  baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
+});
 
 export const login = async ({ email, password }) => {
   try {
-    const response = await axios.post(`${BASE_URL}/login`, { email, password });
+    const response = await api.post('/login', { email, password });
     return response.data;
   } catch (error) {
-    return error.message;
+    console.log(error.message);
+    return null;
   }
 };
 
