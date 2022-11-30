@@ -1,23 +1,25 @@
 import React from 'react';
-
-const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const PASSWORD_MIN_LENGTH = 6;
+import { login } from '../API/login.API';
+import isUserInputValid from '../helpers/login.helpers';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  // const [showAlert, setAlert] = React.useState(false);
+  const [showAlert, setAlert] = React.useState(false);
   const [loginDisabled, setLoginDisabled] = React.useState(true);
 
-  React.useEffect(() => {
-    const isEmailValid = EMAIL_REGEX.test(email);
-    const isPasswordValid = password.length >= PASSWORD_MIN_LENGTH;
-    console.log(email, isEmailValid, isPasswordValid);
-    if (isEmailValid && isPasswordValid) {
-      setLoginDisabled(false);
-      return;
+  const loginRequest = async () => {
+    const response = await login({ email, password });
+    if (!response) {
+      setAlert(true);
+      const IN_THREE_SECONDS = 3000;
+      setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
     }
-    setLoginDisabled(true);
+  };
+
+  React.useEffect(() => {
+    if (isUserInputValid(email, password)) setLoginDisabled(false);
+    else setLoginDisabled(true);
   }, [email, password]);
 
   return (
@@ -44,6 +46,7 @@ export default function Login() {
         type="button"
         data-testid="common_login__button-login"
         disabled={ loginDisabled }
+        onClick={ loginRequest }
       >
         Login
       </button>
@@ -53,9 +56,9 @@ export default function Login() {
       >
         Ainda não tenho uma conta
       </button>
-      {/* {showAlert ? (
+      {showAlert ? (
         <span data-testid="common_login__element-invalid-email">Usuario invalido</span>
-      ) : null} */}
+      ) : null}
     </div>
   );
 }
