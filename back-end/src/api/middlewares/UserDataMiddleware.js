@@ -1,4 +1,4 @@
-const CustomHttpError = require("./CustomHttpError");
+const CustomHttpError = require('./CustomHttpError');
 
 const userCheck = (req, _res, next) => {
   const { email, password } = req.body;
@@ -8,8 +8,8 @@ const userCheck = (req, _res, next) => {
   
   if (!email.match(emailRegex) || passArr.length < 6) {
     throw new CustomHttpError(400, 'WRONG EMAIL OR PASSWORD');
-  };
+  }
   next();
-}
+};
 
 module.exports = userCheck;

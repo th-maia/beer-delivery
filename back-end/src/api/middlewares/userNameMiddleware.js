@@ -1,4 +1,4 @@
-const CustomHttpError = require("./CustomHttpError");
+const CustomHttpError = require('./CustomHttpError');
 
 const nameCheck = (req, _res, next) => {
   const { name } = req.body;
@@ -6,8 +6,8 @@ const nameCheck = (req, _res, next) => {
   
   if (nameArr.length < 12) {
     throw new CustomHttpError(400, 'INCORRET NAME');
-  };
+  }
   next();
-}
+};
 
 module.exports = nameCheck;
