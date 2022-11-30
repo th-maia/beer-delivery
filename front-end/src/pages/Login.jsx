@@ -1,19 +1,23 @@
 import React from 'react';
 import { login } from '../API/login.API';
 import isUserInputValid from '../helpers/login.helpers';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showAlert, setAlert] = React.useState(false);
   const [loginDisabled, setLoginDisabled] = React.useState(true);
+  const [, setValue] = useLocalStorage('user', '');
 
   const loginRequest = async () => {
     const response = await login({ email, password });
     if (!response) {
       setAlert(true);
-      const IN_THREE_SECONDS = 3000;
-      setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
+      // const IN_THREE_SECONDS = 3000;
+      // setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
+    } else {
+      setValue(response);
     }
   };
 
@@ -46,7 +50,7 @@ export default function Login() {
         type="button"
         data-testid="common_login__button-login"
         disabled={ loginDisabled }
-        onClick={ loginRequest }
+        onClick={ async () => loginRequest() }
       >
         Login
       </button>
