@@ -5,19 +5,18 @@ const CustomHttpError = require('../middlewares/CustomHttpError');
 
 const postUser = async ({ name, email, password, role }) => {
   const user = await User.findOne({ where: { email } });
-
-  if (user) {
-    throw new CustomHttpError(409, 'EMAIL ALREADY EXIST');
-  }
-
+  if (user) throw new CustomHttpError(409, 'EMAIL ALREADY EXIST');
+  
   const hash = md5(password);
-
   const result = await User.create({ name, email, password: hash, role });
-  if (!result) {
-    throw new CustomHttpError(500, 'COULD NOT REGISTER USER');
-  }
+  if (!result) throw new CustomHttpError(500, 'COULD NOT REGISTER USER');
 
-  const token = await generateToken({ email: result.email, name: result.name, role: result.role });
+  const token = await generateToken({ 
+      id: result.id,
+      email: result.email, 
+      name: result.name,
+      role: result.role,
+  });
 
   return {
     name: result.name,
