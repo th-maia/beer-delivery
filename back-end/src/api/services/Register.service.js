@@ -17,7 +17,7 @@ const postUser = async ({ name, email, password, role }) => {
     throw new CustomHttpError(500, 'COULD NOT REGISTER USER');
   }
 
-  const token = await generateToken({ email: result.email, name: result.name, role: result.role });
+  const token = await generateToken({ id: result.id, email: result.email, name: result.name, role: result.role });
 
   return {
     name: result.name,
