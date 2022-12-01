@@ -2,7 +2,7 @@ const { Sale, SaleProduct } = require('../../database/models/index');
 const CustomHttpError = require('../middlewares/CustomHttpError');
 
 const getAllSales = async (id) => {
-  const sales = await Sale.findAll({ where: { user_id: id } });
+  const sales = await Sale.findAll({ where: { userId: id } });
   if (!sales || sales.length === 0) throw new CustomHttpError(404, 'NO SALES FOUND FOR THIS USER');
   return sales;
 };

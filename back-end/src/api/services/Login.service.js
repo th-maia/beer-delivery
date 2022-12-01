@@ -11,11 +11,14 @@ const getUser = async (email, pass) => {
     where: { email, password },
   });
   
-  if (!user) {
-    throw new CustomHttpError(404, 'NOT FOUND');
-  }
+  if (!user) throw new CustomHttpError(404, 'NOT FOUND');
 
-  const token = await generateToken({ id: user.id, email: user.email, name: user.name, role: user.role });
+  const token = await generateToken({
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    role: user.role,
+  });
 
   return {
     name: user.name,

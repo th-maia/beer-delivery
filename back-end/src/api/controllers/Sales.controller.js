@@ -10,6 +10,6 @@ const newSale = async (req, res) => {
     const id = Number(req.headers.id);
     const sale = await createNewSale(id, req.body);
     return res.status(201).json(sale);
-}
+};
 
 module.exports = { getSales, newSale };

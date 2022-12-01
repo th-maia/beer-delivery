@@ -4,16 +4,16 @@ const CustomHttpError = require('./CustomHttpError');
 const salesObject = Joi.object({
   productName: Joi.string().required()
       .messages({
-        'string-empty': 'is required',
+        'string-empty': 'productName is required',
     }),  
   productId: Joi.number().required()
       .messages({
-        'number-empty': 'is required',
+        'number-empty': 'productId is required',
     }),
     quantity: Joi.number().positive().min(1)
       .required()
       .messages({
-      'number-empty': 'is required',
+      'number-empty': 'quantity is required',
       'number-positive': 'must be greater than or equal to 1',
     }),
   });
@@ -42,12 +42,9 @@ const saleSchema = Joi.object({
     }),
 });
 
-const checkBodySale = (req, res, next) => {
+const checkBodySale = (req, _res, next) => {
     const validation = saleSchema.validate(req.body);
-    if (validation.error) {
-        console.log(validation.error);
-        return res.status(422).json({ message: validation.error.details[0].message });
-    }
+    if (validation.error) throw new CustomHttpError(422, validation.error.details[0].message);
     next();
 };
 
