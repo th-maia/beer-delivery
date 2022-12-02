@@ -10,6 +10,7 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Page.Login /> } />
         <Route path="/register" element={ <Page.Register /> } />
+        <Route path="/customer/products" element={ <Page.Products /> } />
       </Routes>
     </BrowserRouter>
   );

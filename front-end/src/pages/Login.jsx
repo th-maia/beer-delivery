@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../API/login.API';
+import { login } from '../API/user.API';
 import isUserInputValid from '../helpers/login.helpers';
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -35,6 +35,7 @@ export default function Login() {
         <input
           id="login"
           type="text"
+          value={ email }
           data-testid="common_login__input-email"
           onChange={ (e) => setEmail(e.target.value) }
         />
@@ -44,6 +45,7 @@ export default function Login() {
         <input
           id="senha"
           type="password"
+          value={ password }
           data-testid="common_login__input-password"
           onChange={ (e) => setPassword(e.target.value) }
         />
