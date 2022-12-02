@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../../../components/Navbar/Navbar';
 import ProductItem from '../../../components/ProductItem/ProductItem';
 import api from '../../../services/api';
-import './ProductList.styles.css';
 
 function ProductList() {
   const [products, setProducts] = React.useState([]);
@@ -24,13 +23,13 @@ function ProductList() {
     <>
       <Navbar />
       <div className="container">
-        {products?.map(({ id, name, price, url_image }) => (
+        {products?.map(({ id, name, price, urlImage }) => (
           <ProductItem
             key={ id }
             id={ id }
             name={ name }
             price={ price }
-            image={ url_image }
+            image={ urlImage }
           />
         ))}
       </div>

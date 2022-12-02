@@ -1,6 +1,5 @@
 import React from 'react';
 import removeComma from '../../utils/removeComma';
-import './ProductItem.styles.css';
 
 function ProductItem({ id, name, price, image }) {
   const [quantity, setQuantity] = React.useState(1);
@@ -42,7 +41,8 @@ function ProductItem({ id, name, price, image }) {
       </div>
       <div className="customer_products__element-card_name-container">
         <h2
-          data-testid={ `customer_products__element-card-title-${id}` }>
+          data-testid={ `customer_products__element-card-title-${id}` }
+        >
           {name}
         </h2>
         <div className="customer_products__button-card">
