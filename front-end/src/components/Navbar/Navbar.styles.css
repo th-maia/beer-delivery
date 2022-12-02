@@ -1,0 +1,30 @@
+.navbar_top {
+  height: 80px;
+
+}
+.container_between {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  background-color: #036B52;
+}
+.customer_products__item {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.customer_products__element-navbar-link-orders {
+  width: 100%;
+  max-width: 250px;
+}
+
+.customer_products__element-navbar-link-padding {
+  padding: 30px;
+}
+
+.customer_products__element-name{
+  font-weight: bold;
+  text-transform: uppercase;
+}

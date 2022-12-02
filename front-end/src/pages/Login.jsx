@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../API/login.API';
 import isUserInputValid from '../helpers/login.helpers';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [showAlert, setAlert] = React.useState(false);
@@ -18,6 +20,7 @@ export default function Login() {
       // setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
     } else {
       setValue(response);
+      navigate('/customer/products');
     }
   };
 
