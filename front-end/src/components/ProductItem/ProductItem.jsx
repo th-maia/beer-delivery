@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import removeComma from '../../utils/removeComma';
 import useCart from '../../hooks/useCart';
-import { CartContext } from '../../context/CartContext';
 
 function ProductItem({ id, name, price, image, quantity }) {
-  const { cart } = React.useContext(CartContext);
   const { addProduct, removeProduct, setProduct } = useCart();
   const product = {
     id,

@@ -3,7 +3,7 @@ import useCart from '../../hooks/useCart';
 import removeComma from '../../utils/removeComma';
 
 function CartButton() {
-  const { getCartTotal, products } = useCart();
+  const { getCartTotal } = useCart();
 
   return (
     <div
@@ -16,8 +16,7 @@ function CartButton() {
     >
       <div>
         Ver Carrinho: R$
-        <span
-          data-testid="customer_products__checkout-bottom-value">
+        <span data-testid="customer_products__checkout-bottom-value">
           { removeComma(getCartTotal()) }
         </span>
       </div>

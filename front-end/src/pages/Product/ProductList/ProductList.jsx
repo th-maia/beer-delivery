@@ -18,15 +18,11 @@ function ProductList() {
     }).catch((error) => {
       console.error(error);
     });
-  }, []);
+  }, [setProducts]);
 
   React.useEffect(() => {
     fetchProducts();
-  }, []);
-
-  React.useEffect(() => {
-    console.log(products);
-  }, []);
+  }, [fetchProducts]);
 
   return (
     <>
