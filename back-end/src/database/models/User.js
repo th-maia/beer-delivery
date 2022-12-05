@@ -25,7 +25,7 @@ const userSchema = (sequelize, DataTypes) => {
     }
   }, {
     timestamps: false,
-    undescored: true,
+    underscored: true,
     tableName: 'users',
   });
 

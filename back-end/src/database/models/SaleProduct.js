@@ -7,8 +7,6 @@ const saleProductSchema = (sequelize, DataTypes) => {
         model: 'sales',
         key: 'id',
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
     },
     productId: {
       type: DataTypes.INTEGER,
@@ -17,8 +15,6 @@ const saleProductSchema = (sequelize, DataTypes) => {
         model: 'products',
         key: 'id',
       },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE',
     },
     quantity: {
       type: DataTypes.DECIMAL,
@@ -26,8 +22,8 @@ const saleProductSchema = (sequelize, DataTypes) => {
     },
   }, {
     timestamps: false,
-    undescored: true,
-    tableName: 'sale_products',
+    underscored: true,
+    tableName: 'salesProducts',
   });
 
   SaleProduct.associate = (models) => {
