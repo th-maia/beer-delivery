@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 export const CartContext = React.createContext();
 
 export default function CartProvider({ children }) {
+  const [value] = useLocalStorage('cart', '');
   const [cart, setCart] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
@@ -13,6 +15,10 @@ export default function CartProvider({ children }) {
     products,
     setProducts,
   }), [cart, setCart, products, setProducts]);
+
+  React.useEffect(() => {
+    setCart(value ?? []);
+  }, []);
 
   return (
     <CartContext.Provider value={ controllers }>

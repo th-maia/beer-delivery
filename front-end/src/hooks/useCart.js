@@ -1,48 +1,30 @@
 import React from 'react';
 import { CartContext } from '../context/CartContext';
+import useLocalStorage from './useLocalStorage';
 
 const useCart = () => {
+  const [value, setValue] = useLocalStorage('cart', '');
   const { cart, setCart, products, setProducts } = React.useContext(CartContext);
   const cartItems = [...products];
 
+  React.useEffect(() => {
+    console.log(cart);
+  }, []);
+
   const addProduct = (productValue) => {
     const index = cartItems?.findIndex((item) => item?.id === productValue.id);
-    // if (index >= 0) {
-    //   const newProduct = {
-    //     ...cartItems[index],
-    //     quantity: cartItems[index].quantity + 1,
-    //   };
-    //   cartItems.splice(index, 1, newProduct);
-    //   setCart(cartItems);
-    //   setProducts(cartItems);
-    // } else {
-    //   setCart([...cartItems, {
-    //     ...productValue,
-    //     quantity: 1,
-    //   }]);
-    // }
     cartItems[index].quantity += 1;
     setProducts(cartItems);
+    setValue(cartItems);
+    setCart(cartItems);
   };
 
-  const setProduct = (id, value) => {
+  const setProduct = (id, quantity) => {
     const index = cartItems?.findIndex((item) => item?.id === id);
-    // if (index >= 0) {
-    //   const newProduct = {
-    //     ...cartItems[index],
-    //     quantity: cartItems[index].quantity + 1,
-    //   };
-    //   cartItems.splice(index, 1, newProduct);
-    //   setCart(cartItems);
-    //   setProducts(cartItems);
-    // } else {
-    //   setCart([...cartItems, {
-    //     ...productValue,
-    //     quantity: 1,
-    //   }]);
-    // }
-    cartItems[index].quantity = value;
+    cartItems[index].quantity = quantity;
     setProducts(cartItems);
+    setValue(cartItems);
+    setCart(cartItems);
   };
 
   const removeProduct = (id) => {
@@ -54,6 +36,15 @@ const useCart = () => {
     }
     setCart(cartItems);
     setProducts(cartItems);
+    setValue(cartItems);
+  };
+
+  const removeProductCart = (id) => {
+    const index = cartItems?.findIndex((item) => item?.id === id);
+    cartItems.splice(index, 1);
+    setCart(cartItems);
+    setProducts(cartItems);
+    setValue(cartItems);
   };
 
   const getProduct = (id) => {
@@ -64,13 +55,23 @@ const useCart = () => {
   const getCartTotal = () => {
     let total = 0;
 
-    for (let i = 0; i < cartItems.length; i += 1) {
-      total += cartItems[i].price * cartItems[i].quantity;
+    for (let i = 0; i < cart.length; i += 1) {
+      total += cart[i].price * cart[i].quantity;
     }
     return total;
   };
 
-  return { addProduct, getProduct, removeProduct, setProduct, getCartTotal };
+  const getCart = () => value.filter((item) => item.quantity >= 1);
+
+  return {
+    addProduct,
+    getProduct,
+    removeProduct,
+    setProduct,
+    getCartTotal,
+    getCart,
+    removeProductCart,
+  };
 };
 
 export default useCart;

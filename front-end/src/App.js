@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import ProductList from './pages/Product/ProductList/ProductList';
 import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import useLocalStorage from './hooks/useLocalStorage';
+import Checkout from './pages/Checkout/Checkout';
 
 function App() {
   const [value] = useLocalStorage('user', '');
@@ -23,6 +24,8 @@ function App() {
         />
         <Route path="/customer/products" element={ <ProductList /> } />
         <Route path="/customer/products/:id" element={ <ProductDetail /> } />
+        <Route path="/customer/checkout" element={ <Checkout /> } />
+
         <Route path="/login" element={ <Login /> } />
       </Routes>
     </BrowserRouter>
