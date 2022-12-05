@@ -1,12 +1,27 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import useCart from '../../hooks/useCart';
 import removeComma from '../../utils/removeComma';
+import getDateNow from '../../utils/formatDate';
+import api from '../../services/api';
 
 function Checkout() {
+  // const objectExample = {
+  //   sellerId: '',
+  //   totalPrice: '',
+  //   deliveryAddress: '',
+  //   deliveryNumber: '',
+  //   saleDate: '',
+  //   status: '',
+  //   products: '',
+  // };
+
   const [value] = useLocalStorage('cart', '');
+  const user = JSON.parse(localStorage.getItem('user'));
   const { getCart, getCartTotal, removeProductCart } = useCart();
+  const navigate = useNavigate();
 
   const title = [
     { id: 1, title: 'Item', align: 'center', width: '50px' },
@@ -16,6 +31,34 @@ function Checkout() {
     { id: 5, title: 'Sub-total', align: 'center', width: '80px' },
     { id: 6, title: 'Remover item', align: 'center', width: '200px' },
   ];
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const form = event.target.elements;
+    const saleObject = {
+      sellerId: form.sellerId.value,
+      deliveryAddress: form.deliveryAddress.value,
+      deliveryNumber: form.deliveryNumber.value,
+      saleDate: getDateNow(),
+      status: 'Pendente',
+      products: getCart().map((item) => ({
+        productId: item.id,
+        productName: item.name,
+        quantity: item.quantity,
+      })),
+      totalPrice: getCartTotal(),
+    };
+
+    api.post('/sales', saleObject, {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      navigate(`/customer/orders/${response.data.id}`);
+    }).catch((error) => {
+      console.error(error.response.data);
+    });
+  };
 
   return (
     <>
@@ -76,7 +119,7 @@ function Checkout() {
                       `customer_checkout__element-order-table-unit-price-${index}`
                     }
                   >
-                    { removeComma(parseFloat(product.price).toFixed(2))}
+                    {removeComma(parseFloat(product.price).toFixed(2))}
                   </td>
                   <td
                     width="80px"
@@ -107,15 +150,15 @@ function Checkout() {
                 </tr>
               ))}
           </tbody>
-          <div style={ { marginTop: 50 } }>
+          <form style={ { marginTop: 50 } } onSubmit={ handleSubmit }>
             <div>
-              <select name="seller" data-testid="customer_checkout__select-seller">
-                <option>Zé Birita</option>
+              <select name="sellerId" data-testid="customer_checkout__select-seller">
+                <option value={ user?.id }>{ user?.name }</option>
               </select>
             </div>
             <div>
               <input
-                name="address"
+                name="deliveryAddress"
                 placeholder="Endereço"
                 type="text"
                 data-testid="customer_checkout__input-address"
@@ -123,7 +166,7 @@ function Checkout() {
             </div>
             <div>
               <input
-                name="number"
+                name="deliveryNumber"
                 placeholder="Número"
                 type="text"
                 data-testid="customer_checkout__input-address-number"
@@ -135,11 +178,11 @@ function Checkout() {
                 : '00,00'}
             </span>
             <div>
-              <button type="button" data-testid="customer_checkout__button-submit-order">
+              <button type="submit" data-testid="customer_checkout__button-submit-order">
                 Finalizar pedido
               </button>
             </div>
-          </div>
+          </form>
         </>
 
       )
