@@ -1,25 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import removeComma from '../../utils/removeComma';
+import useCart from '../../hooks/useCart';
+import { CartContext } from '../../context/CartContext';
 
-function ProductItem({ id, name, price, image }) {
-  const [quantity, setQuantity] = React.useState(1);
-
-  const setQuantityInput = (value) => {
-    if (value > 0) {
-      setQuantity(value);
-    } else {
-      setQuantity(0);
-    }
-  };
-
-  const addQuantity = () => {
-    const quantityInput = document.getElementById('quantity').value;
-    setQuantity(+quantityInput + 1);
-  };
-
-  const removeQuantity = () => {
-    const quantityRemove = quantity !== 0 && setQuantity(quantity - 1);
-    return quantityRemove;
+function ProductItem({ id, name, price, image, quantity }) {
+  const { cart } = React.useContext(CartContext);
+  const { addProduct, removeProduct, setProduct } = useCart();
+  const product = {
+    id,
+    name,
+    price,
+    image,
   };
 
   return (
@@ -48,30 +40,23 @@ function ProductItem({ id, name, price, image }) {
         <div className="customer_products__button-card">
           <button
             type="button"
-            onClick={ removeQuantity }
+            onClick={ () => removeProduct(id) }
             data-testid={ `customer_products__button-card-rm-item-${id}` }
-            className="
-            customer_products__button-card-rm-item customer_products__button-card_style"
           >
             Remover
           </button>
           <input
             value={ quantity }
-            min={ 0 }
-            id="quantity"
-            className="customer_products__input-card-quantity "
             data-testid={ `customer_products__input-card-quantity-${id}` }
             type="number"
             onChange={ (event) => {
               const { value } = event.target;
-              setQuantityInput(value);
+              setProduct(id, value);
             } }
           />
           <button
             type="button"
-            onClick={ addQuantity }
-            className="
-            customer_products__button-card-add-item customer_products__button-card_style "
+            onClick={ () => addProduct(product) }
             data-testid={ `customer_products__button-card-add-item-${id}` }
           >
             Adicionar

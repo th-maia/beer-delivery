@@ -44,21 +44,15 @@ function Navbar() {
             </div>
           </div>
           <div className="customer_products__item">
-            <div
+            <h3
               data-testid="customer_products__element-navbar-user-full-name"
-              className="
-                customer_products__element-navbar-user-full-name
-                customer_products__element-navbar-link-padding
-                customer_products__element-name
-                "
               style={ {
                 backgroundColor: '#421981',
                 color: '#F2FFFC',
-                textTransform: 'uppercase',
               } }
             >
-              {value?.name.toUpperCase() ?? 'Não encontrado'}
-            </div>
+              {value?.name }
+            </h3>
             <button
               data-testid="customer_products__element-navbar-link-logout"
               className="
