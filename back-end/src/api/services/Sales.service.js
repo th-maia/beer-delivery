@@ -43,4 +43,10 @@ const createNewSale = async (userId, sale) => {
   }
 };
 
-module.exports = { getAllSales, createNewSale };
+const getSalesProduct = async (id) => {
+  const salesProduct = await SaleProduct.findAll({ where: { saleId: id } });
+  if (!salesProduct) throw new CustomHttpError(404, 'NO PRODUCTS FOUND FOR THIS SALE');
+  return salesProduct;
+};
+
+module.exports = { getAllSales, createNewSale, getSalesProduct };
