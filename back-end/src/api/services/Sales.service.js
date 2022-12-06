@@ -44,7 +44,7 @@ const createNewSale = async (userId, sale) => {
 };
 
 const getSalesProduct = async (id) => {
-  const salesProduct = await SaleProduct.findAll({ where: { saleId: id }});
+  const salesProduct = await SaleProduct.findAll({ where: { saleId: id } });
   if (!salesProduct) throw new CustomHttpError(404, 'NO PRODUCTS FOUND FOR THIS SALE');
   return salesProduct;
 };

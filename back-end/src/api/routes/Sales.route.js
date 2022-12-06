@@ -9,5 +9,4 @@ salesRoute.get('/:id', checkToken, getSalesProductsById);
 salesRoute.get('/', checkToken, getSales);
 salesRoute.post('/', checkToken, checkBodySale, newSale);
 
-
 module.exports = { salesRoute };

@@ -15,7 +15,7 @@ const newSale = async (req, res) => {
 const getSalesProductsById = async (req, res) => {
   const id = Number(req.params.id);
   console.log('id--------', id);
-  const saleById =  await getSalesProduct(id);
+  const saleById = await getSalesProduct(id);
   return res.status(200).json(saleById);
 }; 
 
