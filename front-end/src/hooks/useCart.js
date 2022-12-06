@@ -3,7 +3,7 @@ import { CartContext } from '../context/CartContext';
 import useLocalStorage from './useLocalStorage';
 
 const useCart = () => {
-  const [value, setValue] = useLocalStorage('cart', '');
+  const { value, setValue } = useLocalStorage('cart', '');
   const { cart, setCart, products, setProducts } = React.useContext(CartContext);
   const cartItems = [...products];
 
