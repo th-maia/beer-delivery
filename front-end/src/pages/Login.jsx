@@ -1,5 +1,6 @@
 import React from 'react';
-import { login } from '../API/login.API';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../API/user.API';
 import isUserInputValid from '../helpers/login.helpers';
 import useLocalStorage from '../hooks/useLocalStorage';
 
@@ -8,7 +9,8 @@ export default function Login() {
   const [password, setPassword] = React.useState('');
   const [showAlert, setAlert] = React.useState(false);
   const [loginDisabled, setLoginDisabled] = React.useState(true);
-  const [, setValue] = useLocalStorage('user', '');
+  const { setValue } = useLocalStorage('user', '');
+  const navigate = useNavigate();
 
   const loginRequest = async () => {
     const response = await login({ email, password });
@@ -33,6 +35,7 @@ export default function Login() {
         <input
           id="login"
           type="text"
+          value={ email }
           data-testid="common_login__input-email"
           onChange={ (e) => setEmail(e.target.value) }
         />
@@ -42,6 +45,7 @@ export default function Login() {
         <input
           id="senha"
           type="password"
+          value={ password }
           data-testid="common_login__input-password"
           onChange={ (e) => setPassword(e.target.value) }
         />
@@ -57,6 +61,7 @@ export default function Login() {
       <button
         type="button"
         data-testid="common_login__button-register"
+        onClick={ () => navigate('/register') }
       >
         Ainda não tenho uma conta
       </button>
