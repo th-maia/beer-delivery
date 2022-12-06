@@ -1,5 +1,9 @@
 const express = require('express');
-const { getSales, newSale, getSalesProductsById } = require('../controllers/Sales.controller');
+const { 
+    getSales,
+    newSale,
+    getSalesProductsById, 
+} = require('../controllers/Sales.controller');
 const checkToken = require('../middlewares/VerifyTokenMiddleware');
 const checkBodySale = require('../middlewares/SaleMiddleware');
 
