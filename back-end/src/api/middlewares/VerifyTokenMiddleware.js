@@ -18,7 +18,7 @@ const checkToken = async (req, res, next) => {
   }
 
   req.headers.id = decoded.id;
-
+  console.log('oi');
   next();
 };
 

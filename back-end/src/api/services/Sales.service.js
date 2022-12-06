@@ -13,6 +13,14 @@ const getAllSales = async (id) => {
   return sales;
 };
 
+const getAllSalesBySeller = async (id) => {
+  const sales = await Sale.findAll({ where: { sellerId: id } });
+  if (!sales || sales.length === 0) {
+    throw new CustomHttpError(404, 'NO SALES FOUND FOR THIS SELLER');
+  }
+  return sales;
+};
+
 const createObjectToSale = (userId, sale) => (
   {
     userId,
@@ -49,4 +57,4 @@ const getSalesProduct = async (id) => {
   return salesProduct;
 };
 
-module.exports = { getAllSales, createNewSale, getSalesProduct };
+module.exports = { getAllSales, getAllSalesBySeller, createNewSale, getSalesProduct };
