@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
 function Navbar() {
-  const [value] = useLocalStorage('user', '');
+  const { value } = useLocalStorage('user', '');
   const navigate = useNavigate();
 
   return (

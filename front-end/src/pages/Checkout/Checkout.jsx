@@ -18,7 +18,7 @@ function Checkout() {
   //   products: '',
   // };
 
-  const [value] = useLocalStorage('cart', '');
+  const { value } = useLocalStorage('cart', '');
   const user = JSON.parse(localStorage.getItem('user'));
   const { getCart, getCartTotal, removeProductCart } = useCart();
   const navigate = useNavigate();

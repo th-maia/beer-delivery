@@ -5,7 +5,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 export const CartContext = React.createContext();
 
 export default function CartProvider({ children }) {
-  const [value] = useLocalStorage('cart', '');
+  const { value } = useLocalStorage('cart', '');
   const [cart, setCart] = React.useState([]);
   const [products, setProducts] = React.useState([]);
 
@@ -18,7 +18,7 @@ export default function CartProvider({ children }) {
 
   React.useEffect(() => {
     setCart(value ?? []);
-  }, []);
+  }, [value]);
 
   return (
     <CartContext.Provider value={ controllers }>

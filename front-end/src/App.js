@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
-import Login from './pages/Login';
+import { Register, Login } from './pages';
 import ProductList from './pages/Product/ProductList/ProductList';
 import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import useLocalStorage from './hooks/useLocalStorage';
@@ -9,7 +9,7 @@ import Checkout from './pages/Checkout/Checkout';
 import OrderDetail from './pages/Order/OrderDetail/OrderDetail';
 
 function App() {
-  const [value] = useLocalStorage('user', '');
+  const { value } = useLocalStorage('user', '');
   const isLogged = !!value && !!value?.token;
 
   return (
@@ -28,6 +28,7 @@ function App() {
         <Route path="/customer/checkout" element={ <Checkout /> } />
         <Route path="/customer/orders/:id" element={ <OrderDetail /> } />
         <Route path="/login" element={ <Login /> } />
+        <Route path="/register" element={ <Register /> } />
       </Routes>
     </BrowserRouter>
   );
