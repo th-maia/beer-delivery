@@ -21,6 +21,9 @@ app.use('/register', registerRoute);
 app.use('/products', productsRoute);
 app.use('/sales', salesRoute);
 
+app.use(express.static('public')); 
+app.use('/images', express.static('images'));
+
 app.use(handle);
 
 module.exports = app;

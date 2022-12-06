@@ -14,9 +14,10 @@ const productsSchema = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
     },
-    url_image: {
+    urlImage: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'url_image',
     }
   }, {
     timestamps: false,

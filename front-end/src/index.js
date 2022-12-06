@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
+import CartProvider from './context/CartContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <CartProvider>
+      <App />
+    </CartProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

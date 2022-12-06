@@ -20,6 +20,7 @@ export default function Login() {
       // setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
     } else {
       setValue(response);
+      navigate('/customer/products');
     }
   };
 
