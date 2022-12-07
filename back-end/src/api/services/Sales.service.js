@@ -49,4 +49,11 @@ const getSalesProduct = async (id) => {
   return salesProduct;
 };
 
-module.exports = { getAllSales, createNewSale, getSalesProduct };
+const checkout = async (id, status) => {
+  if (status.toLowerCase() !== 'entregue') throw new CustomHttpError(405, 'UPDATE NOT ALLOWED');
+  const sales = await Sale.update({ status }, { where: { id } });
+  if (!sales) throw new CustomHttpError(400, 'NOT UPDATED');
+  return 'DELIVERED';
+};
+
+module.exports = { getAllSales, createNewSale, getSalesProduct, checkout };
