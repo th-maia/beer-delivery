@@ -7,6 +7,8 @@ const saleProductSchema = (sequelize, DataTypes) => {
         model: 'sales',
         key: 'id',
       },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE', 
     },
     productId: {
       type: DataTypes.INTEGER,
@@ -15,6 +17,8 @@ const saleProductSchema = (sequelize, DataTypes) => {
         model: 'products',
         key: 'id',
       },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE', 
     },
     quantity: {
       type: DataTypes.DECIMAL,
