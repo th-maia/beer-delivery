@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes /* useNavigate */ } from 'react-router-dom';
 import './App.css';
 import useLocalStorage from './hooks/useLocalStorage';
 import { Login, Register } from './pages';
@@ -9,8 +9,8 @@ import OrderList from './pages/Order/OrderList/OrderList';
 import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import ProductList from './pages/Product/ProductList/ProductList';
 
-function App() { /*
-  const navigate = useNavigate(); */
+function App() {
+  // const navigate = useNavigate();
   const { value } = useLocalStorage('user', '');
   const isLogged = !!value && !!value?.token;
 
