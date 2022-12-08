@@ -7,30 +7,37 @@ import removeComma from '../../utils/removeComma';
 import getDateNow from '../../utils/formatDate';
 import api from '../../services/api';
 
-function Checkout() {
-  // const objectExample = {
-  //   sellerId: '',
-  //   totalPrice: '',
-  //   deliveryAddress: '',
-  //   deliveryNumber: '',
-  //   saleDate: '',
-  //   status: '',
-  //   products: '',
-  // };
+const title = [
+  { id: 1, title: 'Item', align: 'center', width: '50px' },
+  { id: 2, title: 'Descrição', align: 'center', width: '250px' },
+  { id: 3, title: 'Quantidade', align: 'center', width: '80px' },
+  { id: 4, title: 'Valor Unitário', align: 'center', width: '150px' },
+  { id: 5, title: 'Sub-total', align: 'center', width: '80px' },
+  { id: 6, title: 'Remover item', align: 'center', width: '200px' },
+];
 
+function Checkout() {
+  const [sellers, setSellers] = React.useState([]);
   const { value } = useLocalStorage('cart', '');
   const user = JSON.parse(localStorage.getItem('user'));
   const { getCart, getCartTotal, removeProductCart } = useCart();
   const navigate = useNavigate();
 
-  const title = [
-    { id: 1, title: 'Item', align: 'center', width: '50px' },
-    { id: 2, title: 'Descrição', align: 'center', width: '250px' },
-    { id: 3, title: 'Quantidade', align: 'center', width: '80px' },
-    { id: 4, title: 'Valor Unitário', align: 'center', width: '150px' },
-    { id: 5, title: 'Sub-total', align: 'center', width: '80px' },
-    { id: 6, title: 'Remover item', align: 'center', width: '200px' },
-  ];
+  const fetchSellers = React.useCallback(async () => {
+    await api.get('/seller', {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      setSellers(response.data);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    fetchSellers();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,14 +46,14 @@ function Checkout() {
       sellerId: form.sellerId.value,
       deliveryAddress: form.deliveryAddress.value,
       deliveryNumber: form.deliveryNumber.value,
-      saleDate: getDateNow(),
+      saleDate: await getDateNow(),
       status: 'Pendente',
-      products: getCart().map((item) => ({
+      products: await getCart()?.map((item) => ({
         productId: item.id,
         productName: item.name,
         quantity: item.quantity,
       })),
-      totalPrice: getCartTotal(),
+      totalPrice: await getCartTotal(),
     };
 
     api.post('/sales', saleObject, {
@@ -80,80 +87,89 @@ function Checkout() {
                 ))}
               </tr>
             </thead>
-          </table>
-          <tbody>
-            {getCart()
-              && getCart()?.map((product, index) => (
-                <tr key={ product.id }>
-                  <td
-                    width="50px"
-                    align="center"
-                    data-testid={
-                      `customer_checkout__element-order-table-item-number-${index}`
-                    }
-                  >
-                    {index + 1}
-                  </td>
-                  <td
-                    width="250px"
-                    align="center"
-                    data-testid={
-                      `customer_checkout__element-order-table-name-${index}`
-                    }
-                  >
-                    {product.name}
-                  </td>
-                  <td
-                    width="80px"
-                    align="center"
-                    data-testid={
-                      `customer_checkout__element-order-table-quantity-${index}`
-                    }
-                  >
-                    {product.quantity}
-                  </td>
-                  <td
-                    width="150px"
-                    align="center"
-                    data-testid={
-                      `customer_checkout__element-order-table-unit-price-${index}`
-                    }
-                  >
-                    {removeComma(parseFloat(product.price).toFixed(2))}
-                  </td>
-                  <td
-                    width="80px"
-                    align="center"
-                    data-testid={
-                      `customer_checkout__element-order-table-sub-total-${index}`
-                    }
-                  >
-                    {removeComma(parseFloat(product.price * product.quantity).toFixed(2))}
-                  </td>
-                  <td
-                    width="200px"
-                    align="center"
-                    style={ {
-                      textAlign: 'center',
-                    } }
-                    data-testid={
-                      `customer_checkout__element-order-table-remove-${index}`
-                    }
-                  >
-                    <button
-                      type="button"
-                      onClick={ () => removeProductCart(product.id) }
+            <tbody>
+              {getCart()
+                && getCart()?.map((product, index) => (
+                  <tr key={ product.id }>
+                    <td
+                      width="50px"
+                      align="center"
+                      data-testid={
+                        `customer_checkout__element-order-table-item-number-${index}`
+                      }
                     >
-                      Remover item
-                    </button>
-                  </td>
-                </tr>
-              ))}
-          </tbody>
+                      {index + 1}
+                    </td>
+                    <td
+                      width="250px"
+                      align="center"
+                      data-testid={
+                        `customer_checkout__element-order-table-name-${index}`
+                      }
+                    >
+                      {product.name}
+                    </td>
+                    <td
+                      width="80px"
+                      align="center"
+                      data-testid={
+                        `customer_checkout__element-order-table-quantity-${index}`
+                      }
+                    >
+                      {product.quantity}
+                    </td>
+                    <td
+                      width="150px"
+                      align="center"
+                      data-testid={
+                        `customer_checkout__element-order-table-unit-price-${index}`
+                      }
+                    >
+                      {removeComma(parseFloat(product.price).toFixed(2))}
+                    </td>
+                    <td
+                      width="80px"
+                      align="center"
+                      data-testid={
+                        `customer_checkout__element-order-table-sub-total-${index}`
+                      }
+                    >
+                      {removeComma(
+                        parseFloat(product.price * product.quantity).toFixed(2),
+                      )}
+                    </td>
+                    <td
+                      width="200px"
+                      align="center"
+                      style={ {
+                        textAlign: 'center',
+                      } }
+                      data-testid={
+                        `customer_checkout__element-order-table-remove-${index}`
+                      }
+                    >
+                      <button
+                        type="button"
+                        onClick={ () => removeProductCart(product.id) }
+                      >
+                        Remover item
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
           <form style={ { marginTop: 50 } } onSubmit={ handleSubmit }>
             <div>
               <select name="sellerId" data-testid="customer_checkout__select-seller">
-                <option value={ user?.id }>{ user?.name }</option>
+                {sellers?.map((option) => (
+                  <option
+                    key={ option?.id }
+                    value={ option?.id }
+                  >
+                    { option?.name }
+                  </option>
+                ))}
               </select>
             </div>
             <div>

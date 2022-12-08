@@ -6,7 +6,6 @@ const { registerRoute } = require('./routes/Register.route');
 const { productsRoute } = require('./routes/Products.route');
 const { salesRoute } = require('./routes/Sales.route');
 const { sellerRoute } = require('./routes/Seller.route');
-const { admRoute } = require('./routes/Adm.route');
 
 const handle = (error, _req, res, next) => {
   res.status(error.status || 500).json({ message: error.message });
@@ -23,7 +22,6 @@ app.use('/register', registerRoute);
 app.use('/products', productsRoute);
 app.use('/sales', salesRoute);
 app.use('/seller', sellerRoute);
-app.use('/adm', admRoute);
 
 app.use(express.static('public')); 
 app.use('/images', express.static('images'));

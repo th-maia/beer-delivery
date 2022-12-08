@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './App';
@@ -7,9 +8,11 @@ import CartProvider from './context/CartContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <CartProvider>
-      <App />
-    </CartProvider>
+    <BrowserRouter>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'),
 );

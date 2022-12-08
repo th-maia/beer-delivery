@@ -15,11 +15,4 @@ const getAllSalesBySeller = async (id) => {
     return sales;
 };
 
-const updateSalesBySeller = async (id, status) => {
-  if (status.toLowerCase() === 'entregue') throw new CustomHttpError(405, 'UPDATE NOT ALLOWED');
-  const sales = await Sale.update({ status }, { where: { id } });
-  if (!sales) throw new CustomHttpError(400, 'NOT UPDATED');
-  return 'UPDATED';
-};
-
-module.exports = { getSellers, getAllSalesBySeller, updateSalesBySeller };  
+module.exports = { getSellers, getAllSalesBySeller };

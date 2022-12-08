@@ -3,7 +3,6 @@ const {
   createNewSale,
   getSalesProduct,
   getAllSalesBySeller,
-  checkout,
 } = require('../services/Sales.service');
 
 const getSales = async (req, res) => {
@@ -30,11 +29,4 @@ const getSalesProductsById = async (req, res) => {
   return res.status(200).json(saleById);
 }; 
 
-const checkoutSale = async (req, res) => {
-  const id = Number(req.params.id);
-  const { status } = req.body;
-  const sale = await checkout(id, status);
-  return res.status(200).json({ message: sale });
-};
-
-module.exports = { getSales, getSalesBySeller, newSale, getSalesProductsById, checkoutSale };
+module.exports = { getSales, getSalesBySeller, newSale, getSalesProductsById };
