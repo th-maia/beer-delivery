@@ -1,26 +1,26 @@
 import React from 'react';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes /* useNavigate */ } from 'react-router-dom';
 import './App.css';
-import { Register, Login } from './pages';
-import ProductList from './pages/Product/ProductList/ProductList';
-import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import useLocalStorage from './hooks/useLocalStorage';
+import { Login, Register } from './pages';
 import Checkout from './pages/Checkout/Checkout';
 import OrderDetail from './pages/Order/OrderDetail/OrderDetail';
 import OrderList from './pages/Order/OrderList/OrderList';
+import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
+import ProductList from './pages/Product/ProductList/ProductList';
 
 function App() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { value } = useLocalStorage('user', '');
   const isLogged = !!value && !!value?.token;
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     if (isLogged) {
       navigate('/');
     } else {
       navigate('/login');
     }
-  }, []);
+  }, []); */
 
   return (
     <Routes>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import isRegisterInputValid from '../helpers/register.helpers';
 import { register } from '../API/user.API';
+import isRegisterInputValid from '../helpers/register.helpers';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 export default function Register() {
@@ -71,7 +71,7 @@ export default function Register() {
       </button>
       {showAlert ? (
         <span
-          data-testid="common_register__element-invalid-register"
+          data-testid="common_register__element-invalid_register"
         >
           Registro invalido
         </span>

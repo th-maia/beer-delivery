@@ -12,6 +12,14 @@ export default function Login() {
   const { setValue } = useLocalStorage('user', '');
   const navigate = useNavigate();
 
+  // const { value } = useLocalStorage('user', '');
+  const isLogged = JSON.parse(localStorage.getItem('user'));
+
+  React.useEffect(() => {
+    if (isLogged && isLogged.token) {
+      navigate('/customer/products');
+    }
+  }, []);
   const loginRequest = async () => {
     const response = await login({ email, password });
     if (!response) {

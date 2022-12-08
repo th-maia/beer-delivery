@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import CartButton from '../../../components/CartButton/CartButton';
 import Navbar from '../../../components/Navbar/Navbar';
 import ProductItem from '../../../components/ProductItem/ProductItem';
@@ -7,6 +8,16 @@ import api from '../../../services/api';
 
 function ProductList() {
   const { cart, products, setProducts } = React.useContext(CartContext);
+
+  const navigate = useNavigate();
+  // const { value } = useLocalStorage('user', '');
+  const isLogged = JSON.parse(localStorage.getItem('user'));
+
+  React.useEffect(() => {
+    if (!isLogged || !isLogged.token) {
+      navigate('/login');
+    }
+  }, []);
 
   React.useEffect(() => {
     console.log(cart);
