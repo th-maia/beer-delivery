@@ -52,6 +52,11 @@ const useCart = () => {
     return cart[index];
   };
 
+  const getProductById = (id) => {
+    const index = products?.findIndex((obj) => obj.id === id);
+    return products[index];
+  };
+
   const getCartTotal = () => {
     let total = 0;
 
@@ -71,6 +76,7 @@ const useCart = () => {
     getCartTotal,
     getCart,
     removeProductCart,
+    getProductById,
   };
 };
 

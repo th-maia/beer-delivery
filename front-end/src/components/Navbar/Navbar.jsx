@@ -28,20 +28,19 @@ function Navbar() {
             >
               Produtos
             </div>
-            <div
+
+            <button
               data-testid="customer_products__element-navbar-link-orders"
-              className="
-                customer_products__element-navbar-link-orders
-                customer_products__element-navbar-link-padding
-                customer_products__element-name
-                "
               style={ {
                 backgroundColor: '#036B52',
                 color: '#F2FFFC',
               } }
+              type="button"
+              onClick={ () => navigate('/customer/orders') }
             >
               Meus pedidos
-            </div>
+            </button>
+
           </div>
           <div className="customer_products__item">
             <h3
@@ -51,7 +50,7 @@ function Navbar() {
                 color: '#F2FFFC',
               } }
             >
-              {value?.name }
+              {value?.name}
             </h3>
             <button
               data-testid="customer_products__element-navbar-link-logout"
