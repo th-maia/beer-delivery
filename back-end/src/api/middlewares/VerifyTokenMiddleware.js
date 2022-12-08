@@ -6,7 +6,7 @@ const checkToken = async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    throw new CustomHttpError(403, 'NO TOKEN FOUND');
+    throw new CustomHttpError(400, 'NO TOKEN FOUND');
   }
   
   const decoded = await userJWT(authorization);
@@ -14,7 +14,7 @@ const checkToken = async (req, res, next) => {
   const user = User.findOne({ where: { email: decoded.email } });
 
   if (!user) {
-    throw new CustomHttpError(403, 'USER NOT FOUND. INVALID TOKEN');
+    throw new CustomHttpError(404, 'USER NOT FOUND. INVALID TOKEN');
   }
 
   req.headers.id = decoded.id;
