@@ -56,6 +56,30 @@ const clienteResponse = {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJjbGllbnRlQGVtYWlsLmNvbSIsIm5hbWUiOiJjbGllbnRldGVzdGUiLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2NzA3MDg1MTYsImV4cCI6MTY3Mjc4MjExNn0.d-vBhKAJPcxCFl3cdgKGgHbJIBeMw-Al5sItPWhLNqg"
 };
 
+const users = [
+    {
+      "id": 2,
+      "name": "Fulana Pereira",
+      "email": "fulana@deliveryapp.com",
+      "password": "3c28d2b0881bf46457a853e0b07531c6",
+      "role": "seller"
+    },
+    {
+      "id": 3,
+      "name": "Cliente Zé Birita",
+      "email": "zebirita@email.com",
+      "password": "1c37466c159755ce1fa181bd247cb925",
+      "role": "customer"
+    },
+    {
+      "id": 4,
+      "name": "clienteteste",
+      "email": "cliente@email.com",
+      "password": "99cf138155fbfc8638f1385d7ffefd8e",
+      "role": "customer"
+    }
+  ];
+
 module.exports = { 
     administrator, 
     seller, 
@@ -64,4 +88,5 @@ module.exports = {
     clienteRegister,
     clienteAlreadyRegistered,
     clienteResponse,
+    users,
  };

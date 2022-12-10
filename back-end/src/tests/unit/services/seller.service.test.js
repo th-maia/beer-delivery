@@ -23,7 +23,7 @@ describe ('Testes da rota sellers, camada service', () => {
             sinon.stub(Model, 'findAll').resolves();
         });
         afterEach(() => sinon.restore());
-        it('Deve retornar um erro, quando não for encontrado nenum vendedor', async () => {
+        it('Deve retornar um erro, quando não for encontrado nenhum vendedor', async () => {
             try {
                 const sales = await getSellers();
             } catch (err) {
