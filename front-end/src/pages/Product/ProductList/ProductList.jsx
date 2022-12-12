@@ -37,7 +37,9 @@ function ProductList() {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        user="customer"
+      />
       <div className="container">
         {products?.map(({ id, name, price, quantity, urlImage }) => (
           <ProductItem

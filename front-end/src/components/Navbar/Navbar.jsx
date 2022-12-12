@@ -1,10 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Outlet, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
-function Navbar() {
+function Navbar({
+  user,
+}) {
   const { value } = useLocalStorage('user', '');
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    console.log(user);
+  }, []);
 
   return (
     <>
@@ -26,20 +33,24 @@ function Navbar() {
                 color: '#001813',
               } }
             >
-              Produtos
+              { user === 'customer' ? 'Produtos' : 'Pedidos' }
             </div>
 
-            <button
-              data-testid="customer_products__element-navbar-link-orders"
-              style={ {
-                backgroundColor: '#036B52',
-                color: '#F2FFFC',
-              } }
-              type="button"
-              onClick={ () => navigate('/customer/orders') }
-            >
-              Meus pedidos
-            </button>
+            {
+              user === 'customer'
+              && (
+                <button
+                  data-testid="customer_products__element-navbar-link-orders"
+                  style={ {
+                    backgroundColor: '#036B52',
+                    color: '#F2FFFC',
+                  } }
+                  type="button"
+                  onClick={ () => navigate('/customer/orders') }
+                >
+                  Meus pedidos
+                </button>)
+            }
 
           </div>
           <div className="customer_products__item">
@@ -82,3 +93,7 @@ function Navbar() {
 }
 
 export default Navbar;
+
+Navbar.propTypes = {
+  user: PropTypes.string,
+}.isRequired;

@@ -7,18 +7,18 @@ import useCart from '../../../hooks/useCart';
 import removeComma from '../../../utils/removeComma';
 
 const dataid = {
-  orderId: 'customer_order_details__element-order-details-label-order-id',
-  sellerName: 'customer_order_details__element-order-details-label-seller-name',
-  date: 'customer_order_details__element-order-details-label-order-date',
-  status: 'customer_order_details__element-order-details-label-delivery-status<index>',
-  buttonDelivery: 'customer_order_details__button-delivery-check',
-  totalPrice: 'customer_order_details__element-order-total-price',
+  orderId: 'seller_order_details__element-order-details-label-order-id',
+  date: 'seller_order_details__element-order-details-label-order-date',
+  status: 'seller_order_details__element-order-details-label-delivery-status<index>',
+  buttonPreparing: 'seller_order_details__button-preparing-check',
+  buttonDispatch: 'seller_order_details__button-dispatch-check',
+  totalPrice: 'seller_order_details__element-order-total-price',
 
-  itemId: 'customer_order_details__element-order-table-item-number',
-  tableName: 'customer_order_details__element-order-table-name',
-  tableQuantity: 'customer_order_details__element-order-table-quantity',
-  tableUnit: 'customer_order_details__element-order-table-unit-price',
-  tableTotal: 'customer_order_details__element-order-table-sub-total',
+  itemId: 'seller_order_details__element-order-table-item-number',
+  tableName: 'seller_order_details__element-order-table-name',
+  tableQuantity: 'seller_order_details__element-order-table-quantity',
+  tableUnit: 'seller_order_details__element-order-table-unit-price',
+  tableTotal: 'seller_order_details__element-order-table-sub-total',
 };
 
 const title = [
@@ -29,16 +29,15 @@ const title = [
   { id: 5, title: 'Sub-total', align: 'center', width: '80px' },
 ];
 
-function OrderDetail() {
+function SellerOrderDetail() {
   const { id } = useParams();
   const { getProductById } = useCart();
   const [orders, setOrders] = React.useState({});
-  const [sellers, setSellers] = React.useState([]);
   const [orderId, setOrderId] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
 
   const fetchOrderId = React.useCallback(async () => {
-    await api.get(`/sales/${id}`, {
+    await api.get(`/seller/sales/${id}`, {
       headers: {
         authorization: user?.token,
       },
@@ -51,20 +50,6 @@ function OrderDetail() {
 
   React.useEffect(() => {
     fetchOrderId();
-  }, []);
-
-  const fetchSellers = React.useCallback(async (sellerId) => {
-    await api.get('/seller', {
-      headers: {
-        authorization: user?.token,
-      },
-    }).then((response) => {
-      const findSeller = response.data.filter((item) => sellerId
-        ?.toString().includes(item.id))[0];
-      setSellers(findSeller);
-    }).catch((error) => {
-      console.error(error);
-    });
   }, []);
 
   const fetchOrders = React.useCallback(async () => {
@@ -87,12 +72,22 @@ function OrderDetail() {
 
   if (!orders && !sellers && !orderId) return null;
 
+  // const changeStatus = async (status) => {
+  //   await api.put(`/sales/${id}`, {
+  //     body: {
+  //       status,
+  //     },
+  //   }).then((response) => {
+  //     if (response.status === )
+  //   })
+  // }
+
   const dateOrder = orders?.saleDate && new Date(orders?.saleDate);
   console.log(orderId);
   return (
     <>
       <Navbar
-        user="customer"
+        user="seller"
       />
       <div>
         <div>
@@ -101,13 +96,6 @@ function OrderDetail() {
             data-testid={ dataid.orderId }
           >
             {orders?.id}
-          </span>
-        </div>
-        <div>
-          <span
-            data-testid={ dataid.sellerName }
-          >
-            {sellers?.name}
           </span>
         </div>
         <div>
@@ -128,9 +116,16 @@ function OrderDetail() {
           <button
             disabled
             type="button"
-            data-testid={ dataid.buttonDelivery }
+            data-testid={ dataid.buttonPreparing }
           >
-            Marcar como entregue
+            Preparar Pedido
+          </button>
+          <button
+            disabled
+            type="button"
+            data-testid={ dataid.buttonDispatch }
+          >
+            Saiu para entrega
           </button>
         </div>
       </div>
@@ -187,4 +182,4 @@ function OrderDetail() {
   );
 }
 
-export default OrderDetail;
+export default SellerOrderDetail;
