@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import Navbar from '../../../components/Navbar/Navbar';
 import api from '../../../services/api';
-import useCart from '../../../hooks/useCart';
 import removeComma from '../../../utils/removeComma';
 
 const dataid = {
@@ -31,9 +30,10 @@ const title = [
 
 function OrderDetail() {
   const { id } = useParams();
-  const { getProductById } = useCart();
   const [orders, setOrders] = React.useState({});
   const [sellers, setSellers] = React.useState([]);
+  const [status, setStatus] = React.useState('Pendente');
+  const [products, setProducts] = React.useState([]);
   const [orderId, setOrderId] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
 
@@ -75,15 +75,54 @@ function OrderDetail() {
     }).then((response) => {
       const findOrder = response.data.filter((item) => id.includes(item.id))[0] ?? [];
       setOrders(findOrder);
+      setStatus(orders.status);
       fetchSellers(findOrder?.sellerId);
     }).catch((error) => {
       console.error(error);
     });
   }, []);
 
+  const fetchProducts = React.useCallback(async () => {
+    await api.get('/products', {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      setProducts(response.data);
+    }).catch((error) => {
+      console.error(error);
+      setProducts(false);
+    });
+  }, []);
+
+  const getProductById = (productId) => {
+    const product = products?.find((el) => el.id === productId);
+    return product;
+  };
+
   React.useEffect(() => {
     fetchOrders();
+    fetchProducts();
   }, []);
+
+  const handleStatusBtn = React.useCallback(async (value) => {
+    await api.put(`/sales/${id}`, {
+      status: value,
+    }, {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      setStatusChange(!statusChange);
+      console.log('Response', response.data);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
+  React.useEffect(() => {
+    console.log(status);
+  }, [status]);
 
   if (!orders && !sellers && !orderId) return null;
 
@@ -121,14 +160,16 @@ function OrderDetail() {
           <span
             data-testid={ dataid.status }
           >
-            {orders?.status}
+            { status }
           </span>
         </div>
         <div>
           <button
-            disabled
+            disabled={ status !== 'Em Trânsito' }
             type="button"
+            value="Entregue"
             data-testid={ dataid.buttonDelivery }
+            onClick={ (e) => handleStatusBtn(e.target.value) }
           >
             Marcar como entregue
           </button>

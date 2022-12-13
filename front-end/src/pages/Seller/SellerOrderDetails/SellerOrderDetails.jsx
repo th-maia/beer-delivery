@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import Navbar from '../../../components/Navbar/Navbar';
 import api from '../../../services/api';
-import useCart from '../../../hooks/useCart';
+// import useCart from '../../../hooks/useCart';
 import removeComma from '../../../utils/removeComma';
 
 const dataid = {
@@ -30,8 +30,11 @@ const title = [
 ];
 
 function SellerOrderDetail() {
-  const { id } = useParams();
-  const { getProductById } = useCart();
+  const { id } = useParams();/*
+  const { getProductById } = useCart(); */
+  const [sellers, setSellers] = React.useState([]);
+  const [status, setStatus] = React.useState('Pendente');
+  const [products, setProducts] = React.useState([]);
   const [orders, setOrders] = React.useState({});
   const [orderId, setOrderId] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -52,41 +55,80 @@ function SellerOrderDetail() {
     fetchOrderId();
   }, []);
 
+  const fetchSellers = React.useCallback(async (sellerId) => {
+    await api.get('/seller', {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      const findSeller = response.data.filter((item) => sellerId
+        ?.toString().includes(item.id))[0];
+      setSellers(findSeller);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
+  const fetchProducts = React.useCallback(async () => {
+    await api.get('/products', {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      setProducts(response.data);
+    }).catch((error) => {
+      console.error(error);
+      setProducts(false);
+    });
+  }, []);
+
+  const getProductById = (productId) => {
+    const product = products?.find((el) => el.id === productId);
+    return product;
+  };
+
   const fetchOrders = React.useCallback(async () => {
-    await api.get('/sales', {
+    await api.get('/seller/sales', {
       headers: {
         authorization: user?.token,
       },
     }).then((response) => {
       const findOrder = response.data.filter((item) => id.includes(item.id))[0] ?? [];
       setOrders(findOrder);
+      setStatus(orders.status);
       fetchSellers(findOrder?.sellerId);
     }).catch((error) => {
       console.error(error);
     });
   }, []);
 
+  const handleStatusBtn = React.useCallback(async (value) => {
+    await api.put(`/seller/sales/${id}`, {
+      status: value,
+    }, {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      setStatus(value);
+      console.log('Response', response.data);
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
   React.useEffect(() => {
+    console.log(status);
+  }, [status]);
+
+  React.useEffect(() => {
+    fetchProducts();
     fetchOrders();
   }, []);
 
   if (!orders && !sellers && !orderId) return null;
 
-  // const changeStatus = async (status) => {
-  //   const twoHundred = 200;
-  //   await api.put(`/sales/${id}`, {
-  //     body: {
-  //       status,
-  //     },
-  //   }).then((response) => {
-  //     if (response.status === twoHundred) {
-
-  //     }
-  //   })
-  // }
-
   const dateOrder = orders?.saleDate && new Date(orders?.saleDate);
-  console.log(orderId);
   return (
     <>
       <Navbar
@@ -112,21 +154,25 @@ function SellerOrderDetail() {
           <span
             data-testid={ dataid.status }
           >
-            {orders?.status}
+            { status }
           </span>
         </div>
         <div>
           <button
-            disabled
+            disabled={ status !== 'Pendente' }
             type="button"
+            value="Preparando"
             data-testid={ dataid.buttonPreparing }
+            onClick={ (e) => handleStatusBtn(e.target.value) }
           >
             Preparar Pedido
           </button>
           <button
-            disabled
+            disabled={ status !== 'Preparando' }
             type="button"
+            value="Em Trânsito"
             data-testid={ dataid.buttonDispatch }
+            onClick={ (e) => handleStatusBtn(e.target.value) }
           >
             Saiu para entrega
           </button>

@@ -9,10 +9,6 @@ function Navbar({
   const { value } = useLocalStorage('user', '');
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    console.log(user);
-  }, []);
-
   return (
     <>
       <div className="navbar_top">
