@@ -36,7 +36,7 @@ function ProductList() {
   }, [fetchProducts]);
 
   return (
-    <>
+    <div>
       <Navbar
         user="customer"
       />
@@ -53,7 +53,7 @@ function ProductList() {
         ))}
         <CartButton />
       </div>
-    </>
+    </div>
   );
 }
 

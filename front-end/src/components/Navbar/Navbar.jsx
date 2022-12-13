@@ -15,7 +15,7 @@ function Navbar({
 
   return (
     <>
-      <navbar className="navbar_top">
+      <div className="navbar_top">
         <div className="container_between">
           <div
             className="customer_products__item"
@@ -86,7 +86,7 @@ function Navbar({
             </button>
           </div>
         </div>
-      </navbar>
+      </div>
       <Outlet />
     </>
   );

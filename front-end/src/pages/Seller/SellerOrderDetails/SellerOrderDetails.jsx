@@ -73,12 +73,15 @@ function SellerOrderDetail() {
   if (!orders && !sellers && !orderId) return null;
 
   // const changeStatus = async (status) => {
+  //   const twoHundred = 200;
   //   await api.put(`/sales/${id}`, {
   //     body: {
   //       status,
   //     },
   //   }).then((response) => {
-  //     if (response.status === )
+  //     if (response.status === twoHundred) {
+
+  //     }
   //   })
   // }
 
