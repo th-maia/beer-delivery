@@ -13,13 +13,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   // const { value } = useLocalStorage('user', '');
-  const isLogged = JSON.parse(localStorage.getItem('user'));
 
-  React.useEffect(() => {
-    if (isLogged && isLogged.token) {
-      navigate('/customer/products');
-    }
-  }, []);
   const loginRequest = async () => {
     const response = await login({ email, password });
     if (!response) {
@@ -28,7 +22,11 @@ export default function Login() {
       // setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
     } else {
       setValue(response);
-      navigate('/customer/products');
+      if (response.role === 'administrator') {
+        navigate('/admin/manage');
+      } else {
+        navigate('/customer/products');
+      }
     }
   };
 

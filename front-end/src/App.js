@@ -4,6 +4,7 @@ import './App.css';
 import useLocalStorage from './hooks/useLocalStorage';
 import { Login, Register } from './pages';
 import Checkout from './pages/Checkout/Checkout';
+import UserList from './pages/Manager/UserList/UserList';
 import OrderDetail from './pages/Order/OrderDetail/OrderDetail';
 import OrderList from './pages/Order/OrderList/OrderList';
 import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
@@ -22,13 +23,19 @@ function App() {
     }
   }, []); */
 
+  const appRouter = value?.role === 'administrator'
+    ? '/admin/manage'
+    : '/customer/products';
+
+  console.log(appRouter);
+
   return (
     <Routes>
       <Route
         path="/"
         element={
           isLogged
-            ? <Navigate to="/customer/products" />
+            ? <Navigate to={ appRouter } />
             : <Navigate to="/login" />
         }
       />
@@ -39,6 +46,8 @@ function App() {
       <Route path="/customer/orders/:id" element={ <OrderDetail /> } />
       <Route path="/login" element={ <Login /> } />
       <Route path="/register" element={ <Register /> } />
+
+      <Route path="/admin/manage" element={ <UserList /> } />
     </Routes>
   );
 }
