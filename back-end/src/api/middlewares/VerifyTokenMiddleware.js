@@ -18,7 +18,6 @@ const checkToken = async (req, res, next) => {
   }
 
   req.headers.id = decoded.id;
-  console.log('-----------------passou do midware de token------------------------')
   next();
 };
 
