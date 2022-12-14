@@ -33,7 +33,7 @@ function SellerOrderDetail() {
   const { id } = useParams();/*
   const { getProductById } = useCart(); */
   const [sellers, setSellers] = React.useState([]);
-  const [status, setStatus] = React.useState('Pendente');
+  const [statusOrder, setStatusOrder] = React.useState('Pendente');
   const [products, setProducts] = React.useState([]);
   const [orders, setOrders] = React.useState({});
   const [orderId, setOrderId] = React.useState([]);
@@ -95,7 +95,7 @@ function SellerOrderDetail() {
     }).then((response) => {
       const findOrder = response.data.filter((item) => id.includes(item.id))[0] ?? [];
       setOrders(findOrder);
-      setStatus(orders.status);
+      setStatusOrder(findOrder.status);
       fetchSellers(findOrder?.sellerId);
     }).catch((error) => {
       console.error(error);
@@ -110,7 +110,7 @@ function SellerOrderDetail() {
         authorization: user?.token,
       },
     }).then((response) => {
-      setStatus(value);
+      setStatusOrder(value);
       console.log('Response', response.data);
     }).catch((error) => {
       console.error(error);
@@ -118,8 +118,8 @@ function SellerOrderDetail() {
   }, []);
 
   React.useEffect(() => {
-    console.log(status);
-  }, [status]);
+    console.log(statusOrder);
+  }, [statusOrder]);
 
   React.useEffect(() => {
     fetchProducts();
@@ -154,12 +154,12 @@ function SellerOrderDetail() {
           <span
             data-testid={ dataid.status }
           >
-            { status }
+            { statusOrder }
           </span>
         </div>
         <div>
           <button
-            disabled={ status !== 'Pendente' }
+            disabled={ statusOrder !== 'Pendente' }
             type="button"
             value="Preparando"
             data-testid={ dataid.buttonPreparing }
@@ -168,7 +168,7 @@ function SellerOrderDetail() {
             Preparar Pedido
           </button>
           <button
-            disabled={ status !== 'Preparando' }
+            disabled={ statusOrder !== 'Preparando' }
             type="button"
             value="Em Trânsito"
             data-testid={ dataid.buttonDispatch }

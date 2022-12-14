@@ -32,7 +32,7 @@ function OrderDetail() {
   const { id } = useParams();
   const [orders, setOrders] = React.useState({});
   const [sellers, setSellers] = React.useState([]);
-  const [status, setStatus] = React.useState('Pendente');
+  const [statusOrder, setStatusOrder] = React.useState('Pendente');
   const [products, setProducts] = React.useState([]);
   const [orderId, setOrderId] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
@@ -68,6 +68,7 @@ function OrderDetail() {
   }, []);
 
   const fetchOrders = React.useCallback(async () => {
+    console.log('entrou no fetch orders');
     await api.get('/sales', {
       headers: {
         authorization: user?.token,
@@ -75,7 +76,7 @@ function OrderDetail() {
     }).then((response) => {
       const findOrder = response.data.filter((item) => id.includes(item.id))[0] ?? [];
       setOrders(findOrder);
-      setStatus(orders.status);
+      setStatusOrder(findOrder.status); // aqui não está retornando o que queria
       fetchSellers(findOrder?.sellerId);
     }).catch((error) => {
       console.error(error);
@@ -113,7 +114,7 @@ function OrderDetail() {
         authorization: user?.token,
       },
     }).then((response) => {
-      setStatusChange(!statusChange);
+      setStatusOrder('Entregue');
       console.log('Response', response.data);
     }).catch((error) => {
       console.error(error);
@@ -121,8 +122,10 @@ function OrderDetail() {
   }, []);
 
   React.useEffect(() => {
-    console.log(status);
-  }, [status]);
+    console.log('entrou no useeffect do statusorder');
+    console.log('');
+    console.log(statusOrder);
+  }, [statusOrder]);
 
   if (!orders && !sellers && !orderId) return null;
 
@@ -160,12 +163,12 @@ function OrderDetail() {
           <span
             data-testid={ dataid.status }
           >
-            { status }
+            { statusOrder }
           </span>
         </div>
         <div>
           <button
-            disabled={ status !== 'Em Trânsito' }
+            disabled={ statusOrder !== 'Em Trânsito' }
             type="button"
             value="Entregue"
             data-testid={ dataid.buttonDelivery }
