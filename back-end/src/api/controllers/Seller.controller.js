@@ -11,4 +11,11 @@ const getSalesBySeller = async (req, res) => {
     return res.status(200).json(sales);
 };
 
-module.exports = { getAllSellers, getSalesBySeller };
+const updateSaleBySeller = async (req, res) => {
+    const id = Number(req.params.id);
+    const { status } = req.body;
+    const sale = await updateSalesBySeller(id, status);
+    return res.status(200).json({ message: sale });
+};
+
+module.exports = { getAllSellers, getSalesBySeller, updateSaleBySeller };

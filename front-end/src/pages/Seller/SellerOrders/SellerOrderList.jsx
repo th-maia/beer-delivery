@@ -3,12 +3,12 @@ import Navbar from '../../../components/Navbar/Navbar';
 import OrderItem from '../../../components/OrderItem/OrderItem';
 import api from '../../../services/api';
 
-function OrderList() {
+function SellerOrderList() {
   const [orders, setOrders] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
 
   const fetchOrders = React.useCallback(async () => {
-    await api.get('/sales', {
+    await api.get('/seller/sales', {
       headers: {
         authorization: user?.token,
       },
@@ -26,7 +26,7 @@ function OrderList() {
   return (
     <>
       <Navbar
-        user="customer"
+        user="seller"
       />
       {orders?.map((order) => (
         <OrderItem
@@ -35,7 +35,7 @@ function OrderList() {
           status={ order?.status }
           date={ order?.saleDate }
           price={ order?.totalPrice }
-          user="customer"
+          user="seller"
         />
       ))}
     </>
@@ -43,4 +43,4 @@ function OrderList() {
   );
 }
 
-export default OrderList;
+export default SellerOrderList;
