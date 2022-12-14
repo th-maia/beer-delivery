@@ -3,21 +3,22 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import Navbar from '../../../components/Navbar/Navbar';
 import api from '../../../services/api';
+// import useCart from '../../../hooks/useCart';
 import removeComma from '../../../utils/removeComma';
 
 const dataid = {
-  orderId: 'customer_order_details__element-order-details-label-order-id',
-  sellerName: 'customer_order_details__element-order-details-label-seller-name',
-  date: 'customer_order_details__element-order-details-label-order-date',
-  status: 'customer_order_details__element-order-details-label-delivery-status<index>',
-  buttonDelivery: 'customer_order_details__button-delivery-check',
-  totalPrice: 'customer_order_details__element-order-total-price',
+  orderId: 'seller_order_details__element-order-details-label-order-id',
+  date: 'seller_order_details__element-order-details-label-order-date',
+  status: 'seller_order_details__element-order-details-label-delivery-status<index>',
+  buttonPreparing: 'seller_order_details__button-preparing-check',
+  buttonDispatch: 'seller_order_details__button-dispatch-check',
+  totalPrice: 'seller_order_details__element-order-total-price',
 
-  itemId: 'customer_order_details__element-order-table-item-number',
-  tableName: 'customer_order_details__element-order-table-name',
-  tableQuantity: 'customer_order_details__element-order-table-quantity',
-  tableUnit: 'customer_order_details__element-order-table-unit-price',
-  tableTotal: 'customer_order_details__element-order-table-sub-total',
+  itemId: 'seller_order_details__element-order-table-item-number',
+  tableName: 'seller_order_details__element-order-table-name',
+  tableQuantity: 'seller_order_details__element-order-table-quantity',
+  tableUnit: 'seller_order_details__element-order-table-unit-price',
+  tableTotal: 'seller_order_details__element-order-table-sub-total',
 };
 
 const title = [
@@ -28,17 +29,18 @@ const title = [
   { id: 5, title: 'Sub-total', align: 'center', width: '80px' },
 ];
 
-function OrderDetail() {
-  const { id } = useParams();
-  const [orders, setOrders] = React.useState({});
+function SellerOrderDetail() {
+  const { id } = useParams();/*
+  const { getProductById } = useCart(); */
   const [sellers, setSellers] = React.useState([]);
   const [statusOrder, setStatusOrder] = React.useState('Pendente');
   const [products, setProducts] = React.useState([]);
+  const [orders, setOrders] = React.useState({});
   const [orderId, setOrderId] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
 
   const fetchOrderId = React.useCallback(async () => {
-    await api.get(`/sales/${id}`, {
+    await api.get(`/seller/sales/${id}`, {
       headers: {
         authorization: user?.token,
       },
@@ -67,22 +69,6 @@ function OrderDetail() {
     });
   }, []);
 
-  const fetchOrders = React.useCallback(async () => {
-    console.log('entrou no fetch orders');
-    await api.get('/sales', {
-      headers: {
-        authorization: user?.token,
-      },
-    }).then((response) => {
-      const findOrder = response.data.filter((item) => id.includes(item.id))[0] ?? [];
-      setOrders(findOrder);
-      setStatusOrder(findOrder.status); // aqui não está retornando o que queria
-      fetchSellers(findOrder?.sellerId);
-    }).catch((error) => {
-      console.error(error);
-    });
-  }, []);
-
   const fetchProducts = React.useCallback(async () => {
     await api.get('/products', {
       headers: {
@@ -101,20 +87,30 @@ function OrderDetail() {
     return product;
   };
 
-  React.useEffect(() => {
-    fetchOrders();
-    fetchProducts();
+  const fetchOrders = React.useCallback(async () => {
+    await api.get('/seller/sales', {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      const findOrder = response.data.filter((item) => id.includes(item.id))[0] ?? [];
+      setOrders(findOrder);
+      setStatusOrder(findOrder.status);
+      fetchSellers(findOrder?.sellerId);
+    }).catch((error) => {
+      console.error(error);
+    });
   }, []);
 
   const handleStatusBtn = React.useCallback(async (value) => {
-    await api.put(`/sales/${id}`, {
+    await api.put(`/seller/sales/${id}`, {
       status: value,
     }, {
       headers: {
         authorization: user?.token,
       },
     }).then((response) => {
-      setStatusOrder('Entregue');
+      setStatusOrder(value);
       console.log('Response', response.data);
     }).catch((error) => {
       console.error(error);
@@ -122,19 +118,21 @@ function OrderDetail() {
   }, []);
 
   React.useEffect(() => {
-    console.log('entrou no useeffect do statusorder');
-    console.log('');
     console.log(statusOrder);
   }, [statusOrder]);
+
+  React.useEffect(() => {
+    fetchProducts();
+    fetchOrders();
+  }, []);
 
   if (!orders && !sellers && !orderId) return null;
 
   const dateOrder = orders?.saleDate && new Date(orders?.saleDate);
-  console.log(orderId);
   return (
     <>
       <Navbar
-        user="customer"
+        user="seller"
       />
       <div>
         <div>
@@ -143,13 +141,6 @@ function OrderDetail() {
             data-testid={ dataid.orderId }
           >
             {orders?.id}
-          </span>
-        </div>
-        <div>
-          <span
-            data-testid={ dataid.sellerName }
-          >
-            {sellers?.name}
           </span>
         </div>
         <div>
@@ -168,13 +159,22 @@ function OrderDetail() {
         </div>
         <div>
           <button
-            disabled={ statusOrder !== 'Em Trânsito' }
+            disabled={ statusOrder !== 'Pendente' }
             type="button"
-            value="Entregue"
-            data-testid={ dataid.buttonDelivery }
+            value="Preparando"
+            data-testid={ dataid.buttonPreparing }
             onClick={ (e) => handleStatusBtn(e.target.value) }
           >
-            Marcar como entregue
+            Preparar Pedido
+          </button>
+          <button
+            disabled={ statusOrder !== 'Preparando' }
+            type="button"
+            value="Em Trânsito"
+            data-testid={ dataid.buttonDispatch }
+            onClick={ (e) => handleStatusBtn(e.target.value) }
+          >
+            Saiu para entrega
           </button>
         </div>
       </div>
@@ -231,4 +231,4 @@ function OrderDetail() {
   );
 }
 
-export default OrderDetail;
+export default SellerOrderDetail;

@@ -69,7 +69,9 @@ function Checkout() {
 
   return (
     <>
-      <Navbar />
+      <Navbar
+        user="customer"
+      />
       <h1>Finalizar pedido</h1>
       {value ? (
         <>

@@ -9,26 +9,57 @@ function OrderItem({
   status,
   date,
   price,
+  user,
 }) {
   return (
-    <Link to={ `/customer/orders/${orderId}` }>
+    <Link
+      to={
+        user === 'customer'
+          ? `/customer/orders/${orderId}`
+          : `/seller/orders/${orderId}`
+      }
+    >
       <div>
         <div>
           Pedido
-          <span data-testid={ `customer_orders__element-order-id-${orderId}` }>
+          <span
+            data-testid={
+              user === 'customer'
+                ? `customer_orders__element-order-id-${orderId}`
+                : `seller_orders__element-order-id-${orderId}`
+            }
+          >
             {orderId}
           </span>
         </div>
         <div>
-          <span data-testid={ `customer_orders__element-delivery-status-${orderId}` }>
+          <span
+            data-testid={
+              user === 'customer'
+                ? `customer_orders__element-delivery-status-${orderId}`
+                : `seller_orders__element-delivery-status-${orderId}`
+            }
+          >
             {status}
           </span>
         </div>
         <div>
-          <span data-testid={ `customer_orders__element-order-date-${orderId}` }>
+          <span
+            data-testid={
+              user === 'customer'
+                ? `customer_orders__element-order-date-${orderId}`
+                : `seller_orders__element-order-date-${orderId}`
+            }
+          >
             {format(new Date(date), 'dd/MM/yyyy')}
           </span>
-          <span data-testid={ `customer_orders__element-card-price-${orderId}` }>
+          <span
+            data-testid={
+              user === 'customer'
+                ? `customer_orders__element-card-price-${orderId}`
+                : `seller_orders__element-card-price-${orderId}`
+            }
+          >
             {removeComma(price)}
           </span>
         </div>
