@@ -7,7 +7,7 @@ const { expect } = require('chai');
 const { describe } = require('mocha');
 const { Model } = require("sequelize");
 
-const app = require('../../api/app')
+const app = require('../../api/app');
 const { 
     clienteRegister,
     clienteAlreadyRegistered,

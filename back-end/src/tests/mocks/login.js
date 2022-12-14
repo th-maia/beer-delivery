@@ -12,6 +12,11 @@ const customerLogin = {
     password: '$#zebirita#$'
 }
 
+const customerLoginNot = {
+    email: 'zebir@email.com',
+    password: '$#zebirita#$'
+}
+
 const customerErrorPassword = {
     email: 'zebirita@email.com',
     password: '$#ze'
@@ -44,4 +49,5 @@ module.exports = {
     customerLoginResponse,
     customerErrorEmail,
     customerErrorPassword,
+    customerLoginNot,
  };

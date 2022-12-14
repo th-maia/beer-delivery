@@ -7,7 +7,7 @@ const { expect } = require('chai');
 const { describe } = require('mocha');
 
 const app = require('../../api/app')
-const { customerLogin, customerErrorEmail, customerErrorPassword, customerLoginResponse } = require('../mocks/login');
+const { customerLogin, customerErrorEmail, customerErrorPassword, customerLoginResponse, customerLoginNot } = require('../mocks/login');
 
 chai.use(sinonChai);
 chai.use(chaiHttp);
@@ -31,6 +31,16 @@ describe('Teste da rota de Login', () => {
                 .send(customerErrorPassword);
             expect(httpResponse.status).to.equal(400);
             expect(httpResponse.body).to.be.deep.equal({ message: 'WRONG EMAIL OR PASSWORD' });
+        });
+    });
+    describe('Teste quando não é encontrado nenhum usuário', () => {
+        it('Deve retornar o status 404 com a mensagem de "NOT FOUND"', async () => {
+            const httpResponse = await chai
+                .request(app)
+                .post('/login')
+                .send(customerLoginNot);
+            expect(httpResponse.status).to.equal(404);
+            expect(httpResponse.body).to.be.deep.equal({ message: 'NOT FOUND' });
         });
     });
     describe('Teste quando o fizer login com sucesso', () => {
