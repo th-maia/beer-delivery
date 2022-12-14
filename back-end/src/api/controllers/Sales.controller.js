@@ -1,6 +1,5 @@
 const salesService = require('../services/Sales.service');
-const sellerService = require('../services/Seller.service')
-
+const sellerService = require('../services/Seller.service');
 
 const getSales = async (req, res) => {
   const id = Number(req.headers.id);
@@ -29,7 +28,7 @@ const getSalesProductsById = async (req, res) => {
 const checkoutSale = async (req, res) => {
   const id = Number(req.params.id);
   const { status } = req.body;
-  const sale = await checkout(id, status);
+  const sale = await salesService.checkout(id, status);
   return res.status(200).json({ message: sale });
 };
 
