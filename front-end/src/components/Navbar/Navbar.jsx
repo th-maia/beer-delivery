@@ -17,8 +17,11 @@ function Navbar({
             className="customer_products__item"
             style={ { flex: 1, justifyContent: 'flex-start' } }
           >
-            <div
-              data-testid="customer_products__element-navbar-link-products"
+            <button
+              type="button"
+              data-testid={ user === 'customer'
+                ? 'customer_products__element-navbar-link-products'
+                : 'customer_products__element-navbar-link-orders' }
               className="
                 customer_products__element-navbar-link-products
                 customer_products__element-navbar-link-padding
@@ -28,9 +31,14 @@ function Navbar({
                 backgroundColor: '#2FC18C',
                 color: '#001813',
               } }
+              onClick={ () => {
+                const route = user === 'customer'
+                  ? '/customer/products' : '/seller/orders';
+                navigate(route);
+              } }
             >
               { user === 'customer' ? 'Produtos' : 'Pedidos' }
-            </div>
+            </button>
 
             {
               user === 'customer'
