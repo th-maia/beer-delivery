@@ -36,8 +36,10 @@ function ProductList() {
   }, [fetchProducts]);
 
   return (
-    <>
-      <Navbar />
+    <div>
+      <Navbar
+        user="customer"
+      />
       <div className="container">
         {products?.map(({ id, name, price, quantity, urlImage }) => (
           <ProductItem
@@ -51,7 +53,7 @@ function ProductList() {
         ))}
         <CartButton />
       </div>
-    </>
+    </div>
   );
 }
 

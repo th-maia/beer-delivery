@@ -11,8 +11,8 @@ const jwtConfig = {
 };
 
 const generateToken = async (payload) => {
-  const secret = await getSecretEvaluation();
-  return jwt.sign(payload, secret, jwtConfig);
+    const secret = await getSecretEvaluation();
+    return jwt.sign(payload, secret, jwtConfig);
 };
 
 const userJWT = async (token) => {

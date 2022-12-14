@@ -1,21 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Outlet, useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../hooks/useLocalStorage';
 
-function Navbar() {
+function Navbar({
+  user,
+}) {
   const { value } = useLocalStorage('user', '');
   const navigate = useNavigate();
 
   return (
     <>
-      <navbar className="navbar_top">
+      <div className="navbar_top">
         <div className="container_between">
           <div
             className="customer_products__item"
             style={ { flex: 1, justifyContent: 'flex-start' } }
           >
-            <div
-              data-testid="customer_products__element-navbar-link-products"
+            <button
+              type="button"
+              data-testid={ user === 'customer'
+                ? 'customer_products__element-navbar-link-products'
+                : 'customer_products__element-navbar-link-orders' }
               className="
                 customer_products__element-navbar-link-products
                 customer_products__element-navbar-link-padding
@@ -25,21 +31,30 @@ function Navbar() {
                 backgroundColor: '#2FC18C',
                 color: '#001813',
               } }
-            >
-              Produtos
-            </div>
-
-            <button
-              data-testid="customer_products__element-navbar-link-orders"
-              style={ {
-                backgroundColor: '#036B52',
-                color: '#F2FFFC',
+              onClick={ () => {
+                const route = user === 'customer'
+                  ? '/customer/products' : '/seller/orders';
+                navigate(route);
               } }
-              type="button"
-              onClick={ () => navigate('/customer/orders') }
             >
-              Meus pedidos
+              { user === 'customer' ? 'Produtos' : 'Pedidos' }
             </button>
+
+            {
+              user === 'customer'
+              && (
+                <button
+                  data-testid="customer_products__element-navbar-link-orders"
+                  style={ {
+                    backgroundColor: '#036B52',
+                    color: '#F2FFFC',
+                  } }
+                  type="button"
+                  onClick={ () => navigate('/customer/orders') }
+                >
+                  Meus pedidos
+                </button>)
+            }
 
           </div>
           <div className="customer_products__item">
@@ -75,10 +90,14 @@ function Navbar() {
             </button>
           </div>
         </div>
-      </navbar>
+      </div>
       <Outlet />
     </>
   );
 }
 
 export default Navbar;
+
+Navbar.propTypes = {
+  user: PropTypes.string,
+}.isRequired;
