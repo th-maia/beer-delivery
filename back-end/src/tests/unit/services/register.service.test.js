@@ -11,7 +11,7 @@ describe ('Testes da rota register, camada service', () => {
         beforeEach(async () => {
             sinon.stub(Model, 'create').resolves(clienteResponse);
         });
-        afterEach(() => sinon.restore());
+        afterEach(async () => sinon.restore());
         it('Deve ser feito cadastro com sucesso e retornar um objeto de usuário com as chaves de registro e token', async () => {
             const user = await postUser(clienteRegister);
             expect(user).to.have.keys(clienteResponse);
@@ -22,7 +22,7 @@ describe ('Testes da rota register, camada service', () => {
         beforeEach(async () => {
             sinon.stub(Model, 'create').resolves(clienteResponse);
         });
-        afterEach(() => sinon.restore());
+        afterEach(async () => sinon.restore());
         it('Deve ser feito cadastro com sucesso e retornar um objeto de usuário com as chaves de registro e token', async () => {
             try {
                 const user = await postUser(clienteAlreadyRegistered);

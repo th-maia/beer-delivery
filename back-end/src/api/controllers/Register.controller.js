@@ -1,7 +1,7 @@
-const { postUser } = require('../services/Register.service');
+const registerService = require('../services/Register.service');
 
 const register = async (req, res) => {
-  const user = await postUser(req.body);
+  const user = await registerService.postUser(req.body);
   return res.status(201).json(user);
 };
 
