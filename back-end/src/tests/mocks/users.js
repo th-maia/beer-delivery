@@ -35,6 +35,13 @@ const customer = {
     token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ6ZWJpcml0YUBlbWFpbC5jb20iLCJuYW1lIjoiQ2xpZW50ZSBaw6kgQmlyaXRhIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjcwNzA3NzUzLCJleHAiOjE2NzI3ODEzNTN9.Ed1sylmghHawx2yojIfOlW_2t8YxkFEuU1GuSl0sl1E'
 };
 
+const customerLoginResponse = {
+    name: 'Cliente Zé Birita',
+    email: 'zebirita@email.com',
+    role: 'customer',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ6ZWJpcml0YUBlbWFpbC5jb20iLCJuYW1lIjoiQ2xpZW50ZSBaw6kgQmlyaXRhIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjcwNzA3NzUzLCJleHAiOjE2NzI3ODEzNTN9.Ed1sylmghHawx2yojIfOlW_2t8YxkFEuU1GuSl0sl1E'
+};
+
 const clienteRegister = {
     "name": "cliente1teste",
     "email": "cliente1testes@email.com",
@@ -45,6 +52,12 @@ const clienteRegister = {
 const clienteAlreadyRegistered = {
     "name": "clienteteste",
     "email": 'zebirita@email.com',
+    "password": "cliente!1234",
+    "role": "customer"
+};
+
+const clientWithoutName = {
+    "email": 'zebirita2@email.com',
     "password": "cliente!1234",
     "role": "customer"
 };
@@ -113,4 +126,6 @@ module.exports = {
     cliente2AlreadyRegistered,
     clienteResponse,
     users,
+    customerLoginResponse,
+    clientWithoutName,
  };

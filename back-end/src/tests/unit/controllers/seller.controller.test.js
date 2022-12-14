@@ -65,7 +65,7 @@ describe ('Testes da rota sellers, camada controller', () => {
             res.status = sinon.stub().returns(res);
             res.json = sinon.stub().returns();
 
-            await salesController.getSalesBySeller(req, res);
+            await sellerController.getSalesBySeller(req, res);
 
             expect(res.status).to.have.been.calledWith(200);
             expect(res.json).to.have.been.calledWith(allSales);
@@ -85,9 +85,48 @@ describe ('Testes da rota sellers, camada controller', () => {
                 res.status = sinon.stub().returns(res);
                 res.json = sinon.stub().returns();
     
-                await salesController.getSales(req, res);
+                await sellerController.getSalesBySeller(req, res);
             } catch (err) {
                 expect(err.message).to.be.deep.equal('NO SALES FOUND FOR THIS USER');
+            }
+        });
+    });
+
+    describe('Atualizar o status de uma venda', () => {
+        beforeEach(async () => {
+            sinon.stub(sellerService, 'updateSalesBySeller').resolves('UPDATED');
+        });
+        afterEach(() => sinon.restore());
+        it('Deve ser possível atualizar o status da venda', async () => {
+            const res = {};
+            const req = { params: { id: 1 }, body: { status: 'Preparando' } };
+
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns();
+
+            await sellerController.updateSaleBySeller(req, res);
+
+            expect(res.status).to.have.been.calledWith(200);
+            expect(res.json).to.have.been.calledWith({ message: 'UPDATED' });
+        });
+    });
+
+    describe('Teste se não for possível atualizar o status de uma venda', () => {
+        beforeEach(async () => {
+            sinon.stub(sellerService, 'updateSalesBySeller').resolves('NOT UPDATED');
+        });
+        afterEach(() => sinon.restore());
+        it('Não é possível atualizar o status da venda', async () => {
+            try {
+                const res = {};
+                const req = { params: { id: 0 }, body: { status: 'Preparando' } };
+
+                res.status = sinon.stub().returns(res);
+                res.json = sinon.stub().returns();
+
+                await sellerController.updateSaleBySeller(req, res);
+            } catch (err) {
+                expect(err.message).to.be.deep.equal('NOT UPDATED');
             }
         });
     });

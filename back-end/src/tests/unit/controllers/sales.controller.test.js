@@ -148,4 +148,63 @@ describe ('Testes da rota sales, camada controller', () => {
             expect(res.json).to.have.been.calledWith(allSales);
         });
     });
+
+    describe('Atualizar o status de uma venda', () => {
+        beforeEach(async () => {
+            sinon.stub(salesService, 'checkout').resolves('DELIVERED');
+        });
+        afterEach(() => sinon.restore());
+        it('Deve ser possível atualizar o status da venda', async () => {
+            const res = {};
+            const req = { params: { id: 1 }, body: { status: 'Entregue' } };
+
+            res.status = sinon.stub().returns(res);
+            res.json = sinon.stub().returns();
+
+            await salesController.checkoutSale(req, res);
+
+            expect(res.status).to.have.been.calledWith(200);
+            expect(res.json).to.have.been.calledWith({ message: 'DELIVERED' });
+        });
+    });
+
+    describe('Teste se não for possível atualizar o status de uma venda', () => {
+        beforeEach(async () => {
+            sinon.stub(sellerService, 'updateSalesBySeller').resolves('UPDATE NOT ALLOWED');
+        });
+        afterEach(() => sinon.restore());
+        it('Não é possível atualizar o status da venda', async () => {
+            try {
+                const res = {};
+                const req = { params: { id: 1 }, body: { status: 'Preparando' } };
+
+                res.status = sinon.stub().returns(res);
+                res.json = sinon.stub().returns();
+
+                await salesController.checkoutSale(req, res);
+            } catch (err) {
+                expect(err.message).to.be.deep.equal('UPDATE NOT ALLOWED');
+            }
+        });
+    });
+
+    describe('Teste se não for possível atualizar o status de uma venda inexistente', () => {
+        beforeEach(async () => {
+            sinon.stub(sellerService, 'updateSalesBySeller').resolves('NOT UPDATED');
+        });
+        afterEach(() => sinon.restore());
+        it('Não é possível atualizar o status da venda', async () => {
+            try {
+                const res = {};
+                const req = { params: { id: 0 }, body: { status: 'Entregue' } };
+
+                res.status = sinon.stub().returns(res);
+                res.json = sinon.stub().returns();
+
+                await salesController.checkoutSale(req, res);
+            } catch (err) {
+                expect(err.message).to.be.deep.equal('NOT UPDATED');
+            }
+        });
+    });
 });

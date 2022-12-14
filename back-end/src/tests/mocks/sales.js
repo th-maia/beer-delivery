@@ -48,6 +48,17 @@ const newSaleResponse = {
     "status": "Pendente"
 };
 
+const updateSaleResponse = {
+  "id": 1,
+  "userId": 3,
+  "sellerId": 2,
+  "totalPrice": 100,
+  "deliveryAddress": "Rua dos Alfineiros",
+  "deliveryNumber": "4",
+  "saleDate": "2022-12-01T00:00:00.000Z",
+  "status": "Preparando"
+};
+
 const productsSale = [
     {
       "saleId": 1,
@@ -66,4 +77,10 @@ const productsSale = [
     }
   ];
 
-module.exports = { allSales, newSaleResponse, newSaleRequest, productsSale }
+module.exports = { 
+  allSales, 
+  newSaleResponse, 
+  newSaleRequest, 
+  productsSale, 
+  updateSaleResponse,
+ };

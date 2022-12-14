@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { Model } = require('sequelize');
 const { describe } = require('mocha');
-const { clienteRegister, clienteResponse, clienteAlreadyRegistered } = require('../../mocks/users');
+const { clienteRegister, clienteResponse, clienteAlreadyRegistered, clientWithoutName } = require('../../mocks/users');
 const { postUser } = require('../../../api/services/Register.service');
 const { Error } = require('sequelize');
 
@@ -28,6 +28,20 @@ describe ('Testes da rota register, camada service', () => {
                 const user = await postUser(clienteAlreadyRegistered);
             } catch (err) {
                 expect(err.message).to.be.deep.equal('EMAIL ALREADY EXIST');
+            }
+        });
+    });
+
+    describe('Teste se o usuário já existe', () => {
+        beforeEach(async () => {
+            sinon.stub(Model, 'create').resolves(undefined);
+        });
+        afterEach(async () => sinon.restore());
+        it('Deve retorna um erro', async () => {
+            try {
+                const user = await postUser(clientWithoutName);
+            } catch (err) {
+                expect(err.message).to.be.deep.equal('COULD NOT REGISTER USER');
             }
         });
     });

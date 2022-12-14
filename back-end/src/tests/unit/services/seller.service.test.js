@@ -3,8 +3,9 @@ const sinon = require('sinon');
 const { Model } = require('sequelize');
 const { describe } = require('mocha');
 const { allSellers } = require('../../mocks/sellers');
-const { getSellers, getAllSalesBySeller } = require('../../../api/services/Seller.service');
-const { allSales } = require('../../mocks/sales');
+const { getSellers, getAllSalesBySeller, updateSalesBySeller } = require('../../../api/services/Seller.service');
+const { allSales, updateSaleResponse } = require('../../mocks/sales');
+const CustomHttpError = require('../../../api/middlewares/CustomHttpError');
 
 describe ('Testes da rota sellers, camada service', () => {
     describe('Visualizar todos os vendedores', () => {
@@ -20,13 +21,15 @@ describe ('Testes da rota sellers, camada service', () => {
 
     describe('Teste se não existir nenhuma vendedor a ser visualizada', () => {
         beforeEach(async () => {
-            sinon.stub(Model, 'findAll').resolves();
+            sinon.stub(Model, 'findAll').resolves(undefined);
         });
         afterEach(() => sinon.restore());
         it('Deve retornar um erro, quando não for encontrado nenhum vendedor', async () => {
             try {
                 const sales = await getSellers();
             } catch (err) {
+                expect(err).to.be.instanceOf(CustomHttpError);
+                expect(err.status).to.be.deep.equal(404);
                 expect(err.message).to.be.deep.equal('NO SELLER FOUND');
             }
         });
@@ -53,6 +56,45 @@ describe ('Testes da rota sellers, camada service', () => {
                 const sales = await getAllSalesBySeller(99);
             } catch (err) {
                 expect(err.message).to.be.deep.equal('NO SALES FOUND FOR THIS SELLER');
+            }
+        });
+    });
+    
+    describe('Atualizar o status de uma venda', () => {
+        beforeEach(async () => {
+            sinon.stub(Model, 'update').resolves('UPDATED');
+        });
+        afterEach(() => sinon.restore());
+        it('Deve ser possível atualizar o status da venda', async () => {
+            const sales = await updateSalesBySeller(1, 'Preparando');
+            expect(sales).to.be.deep.equal('UPDATED');
+        });
+    });
+
+    describe('Teste se não for possível atualizar o status de uma venda', () => {
+        beforeEach(async () => {
+            sinon.stub(Model, 'update').resolves(undefined);
+        });
+        afterEach(() => sinon.restore());
+        it('Não é possível atualizar o status da venda', async () => {
+            try {
+                const sales = await updateSalesBySeller(0, 'Preparando');
+            } catch (err) {
+                expect(err.message).to.be.deep.equal('NOT UPDATED');
+            }
+        });
+    });
+
+    describe('Teste se não for possível atualizar o status de uma venda quando se passa o status errado', () => {
+        beforeEach(async () => {
+            sinon.stub(Model, 'update').resolves('UPDATE NOT ALLOWED');
+        });
+        afterEach(() => sinon.restore());
+        it('Não é possível atualizar o status da venda', async () => {
+            try {
+                const sales = await updateSalesBySeller(0, 'Entregue');
+            } catch (err) {
+                expect(err.message).to.be.deep.equal('UPDATE NOT ALLOWED');
             }
         });
     });
