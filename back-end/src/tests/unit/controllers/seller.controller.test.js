@@ -13,7 +13,7 @@ const { allSales } = require('../../mocks/sales');
 
 chai.use(sinonChai);
 
-describe ('Testes da rota sellers, camada service', () => {
+describe ('Testes da rota sellers, camada controller', () => {
     describe('Visualizar todos os vendedores', () => {
         beforeEach(async () => {
             sinon.stub(sellerService, 'getSellers').resolves(allSellers);

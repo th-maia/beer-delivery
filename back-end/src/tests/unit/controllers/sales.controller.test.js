@@ -2,14 +2,13 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const chai = require("chai");
 const sinonChai = require("sinon-chai");
+const { describe } = require('mocha');
 
 const { Model } = require('sequelize');
-const { describe } = require('mocha');
 const { newSaleResponse, newSaleRequest, allSales, productsSale } = require('../../mocks/sales');
 const salesService = require('../../../api/services/Sales.service');
 const salesController = require('../../../api/controllers/Sales.controller');
 const sellerService = require('../../../api/services/Seller.service');
-
 
 chai.use(sinonChai);
 
