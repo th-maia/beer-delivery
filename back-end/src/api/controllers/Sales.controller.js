@@ -1,4 +1,5 @@
 const salesService = require('../services/Sales.service');
+const sellerService = require('../services/Seller.service')
 
 const getSales = async (req, res) => {
   const id = Number(req.headers.id);
@@ -8,7 +9,7 @@ const getSales = async (req, res) => {
 
 const getSalesBySeller = async (req, res) => {
   const id = Number(req.headers.id);
-  const sales = await salesService.getAllSalesBySeller(id);
+  const sales = await sellerService.getAllSalesBySeller(id);
   return res.status(200).json(sales);
 };
 
