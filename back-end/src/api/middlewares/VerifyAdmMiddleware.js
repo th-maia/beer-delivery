@@ -8,12 +8,14 @@ const checkAdm = async (req, res, next) => {
   if (!authorization) throw new CustomHttpError(403, 'NO TOKEN FOUND');
 
   const decoded = await userJWT(authorization);
-
-  const user = User.findOne({ where: { email: decoded.email } });
-
+  
+  const user = await User.findOne({ where: { email: decoded.email } });
+  
   if (!user) throw new CustomHttpError(403, 'USER NOT FOUND. INVALID TOKEN');
 
-  if (user.role !== 'administrator') throw new CustomHttpError(403, 'USER IS NOT AN ADMINISTRATOR');
+  if (decoded.role !== 'administrator') {
+    throw new CustomHttpError(403, 'USER IS NOT AN ADMINISTRATOR');
+  }
 
   req.headers.id = decoded.id;
 
