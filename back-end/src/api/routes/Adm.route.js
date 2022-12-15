@@ -5,7 +5,6 @@ const { register } = require('../controllers/Register.controller');
 const userCheck = require('../middlewares/UserDataMiddleware');
 const nameCheck = require('../middlewares/userNameMiddleware');
 
-
 const admRoute = express.Router();
 
 admRoute.get('/', checkAdm, getAllClients);
