@@ -13,7 +13,9 @@ const checkAdm = async (req, res, next) => {
   
   if (!user) throw new CustomHttpError(403, 'USER NOT FOUND. INVALID TOKEN');
 
-  if (decoded.role !== 'administrator') throw new CustomHttpError(403, 'USER IS NOT AN ADMINISTRATOR');
+  if (decoded.role !== 'administrator') {
+    throw new CustomHttpError(403, 'USER IS NOT AN ADMINISTRATOR');
+  }
 
   req.headers.id = decoded.id;
 
