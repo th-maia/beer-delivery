@@ -11,7 +11,7 @@ const checkToken = async (req, res, next) => {
   
   const decoded = await userJWT(authorization);
 
-  const user = User.findOne({ where: { email: decoded.email } });
+  const user = await User.findOne({ where: { email: decoded.email } });
 
   if (!user) {
     throw new CustomHttpError(403, 'USER NOT FOUND. INVALID TOKEN');

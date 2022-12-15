@@ -11,6 +11,7 @@ const app = require('../../api/app');
 
 const { allSellers } = require('../mocks/sellers');
 const { allSales, updateSaleResponse } = require('../mocks/sales');
+const { seller } = require("../mocks/users");
 
 chai.use(sinonChai);
 chai.use(chaiHttp);
@@ -37,7 +38,11 @@ describe ('Testes da rota sellers', () => {
 
     describe('Teste se não existir nenhum vendedor a ser visualizada', () => {
         beforeEach(async () => {
-            sinon.stub(Model, 'findAll').resolves(undefined);
+            sinon.stub(Model, 'findAll')
+            .onFirstCall()
+            .resolves(seller)
+            .onSecondCall()
+            .resolves(undefined);
         });
         afterEach(() => sinon.restore());
         it('Deve retornar um erro, quando não for encontrado nenhum vendedor', async () => {
@@ -71,7 +76,11 @@ describe ('Testes da rota sellers', () => {
 
     describe('Teste se não existir nenhuma venda a ser visualizada', () => {
         beforeEach(async () => {
-            sinon.stub(Model, 'findAll').resolves(undefined);
+            sinon.stub(Model, 'findAll')
+            .onFirstCall()
+            .resolves(seller)
+            .onSecondCall()
+            .resolves(undefined);
         });
         afterEach(() => sinon.restore());
         it('Deve retornar um erro, quando não for passado um dos parâmetros', async () => {

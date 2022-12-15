@@ -71,7 +71,7 @@ describe ('Testes da rota adm', () => {
         });
     });
     describe('Teste se o token não existir', () => {
-        beforeEach(async () => {
+        beforeEach(() => {
             sinon.stub(Model, 'findAll')
             .onFirstCall()
             .resolves(undefined)
@@ -84,17 +84,16 @@ describe ('Testes da rota adm', () => {
                 .request(app)
                 .get('/adm')
                 .send();
-
             expect(httpResponse.status).to.equal(403);
             expect(httpResponse.body).to.be.deep.equal({ message: 'NO TOKEN FOUND'});
         });
     });
-    describe('Teste se o user do token não existir', () => {
-        beforeEach(async () => {
-            sinon.stub(Model, 'findAll').resolves(undefined);
+    describe('Teste se o user do user não existir', () => {
+        beforeEach(() => {
+            sinon.stub(Model, 'findOne').resolves(undefined);
         });
         afterEach(() => sinon.restore());
-        it('Deve retornar um erro, quando não for encontrado nenhum token', async () => {
+        it('Deve retornar um erro, quando não for encontrado nenhum user', async () => {
             const httpResponse = await chai
                 .request(app)
                 .get('/adm')
