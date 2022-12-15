@@ -13,7 +13,7 @@ const sellerService = require('../../../api/services/Seller.service');
 chai.use(sinonChai);
 
 describe ('Testes da rota sales, camada controller', () => {
-    describe('Teste se é realizado uma venda com com sucesso', () => {
+    describe('Teste se é realizado uma venda é realizada com sucesso', () => {
         beforeEach(async () => {
             sinon.stub(salesService, 'createNewSale').resolves(newSaleResponse);
         });
@@ -127,25 +127,6 @@ describe ('Testes da rota sales, camada controller', () => {
             } catch (err) {
                 expect(err.message).to.be.deep.equal('NO PRODUCTS FOUND FOR THIS SALE');
             }
-        });
-    });
-
-    describe('Visualizar as vendas', () => {
-        beforeEach(async () => {
-            sinon.stub(sellerService, 'getAllSalesBySeller').resolves(allSales);
-        });
-        afterEach(() => sinon.restore());
-        it('Deve ser possível visualizar todas as vendas realizadas pelo vendedor', async () => {
-            const res = {};
-            const req = { headers: { id: 1 }, body: {} };
-
-            res.status = sinon.stub().returns(res);
-            res.json = sinon.stub().returns();
-
-            await salesController.getSalesBySeller(req, res);
-
-            expect(res.status).to.have.been.calledWith(200);
-            expect(res.json).to.have.been.calledWith(allSales);
         });
     });
 

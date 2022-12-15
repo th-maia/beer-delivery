@@ -6,7 +6,7 @@ const { newSaleResponse, newSaleRequest, allSales, productsSale } = require('../
 const { createNewSale, getAllSales, getSalesProduct, checkout } = require('../../../api/services/Sales.service');
 
 describe ('Testes da rota sales, camada service', () => {
-    describe('Teste se é realizado uma venda com com sucesso', () => {
+    describe('Teste se é realizado uma venda é realizada com sucesso', () => {
         beforeEach(async () => {
             sinon.stub(Model, 'create').resolves(newSaleResponse);
         });

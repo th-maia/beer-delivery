@@ -8,7 +8,7 @@ const { describe } = require('mocha');
 const { Model } = require("sequelize");
 
 const app = require('../../api/app');
-const { users, customer, administrator, cliente2Response } = require('../mocks/users');
+const { users, customer, administrator } = require('../mocks/users');
 
 chai.use(sinonChai);
 chai.use(chaiHttp);

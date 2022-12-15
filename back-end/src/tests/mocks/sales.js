@@ -37,6 +37,31 @@ const newSaleRequest = {
     ]
 };
 
+const newSaleError = {
+  "totalPrice": 100,
+  "deliveryAddress": "Rua dos Alfineiros" ,
+  "deliveryNumber": "4",
+  "saleDate": "2022-12-01",
+  "status": "Pendente",
+  "products": [
+    {
+      "productName": "Skol Lata 250ml",
+      "productId": 1,
+      "quantity": 3
+    },
+    {
+      "productName": "Heineken 600ml",
+      "productId": 2,
+      "quantity": 4
+    },
+    {
+      "productName": "Antarctica Pilsen 300ml",
+      "productId": 3,
+      "quantity": 1
+    }
+  ]
+};
+
 const newSaleResponse = {
     "id": 1,
     "userId": 3,
@@ -83,4 +108,5 @@ module.exports = {
   newSaleRequest, 
   productsSale, 
   updateSaleResponse,
+  newSaleError,
  };
