@@ -8,8 +8,6 @@ const { salesRoute } = require('./routes/Sales.route');
 const { sellerRoute } = require('./routes/Seller.route');
 const { admRoute } = require('./routes/Adm.route');
 
-// Por main-group-2
-
 const handle = (error, _req, res, next) => {
   res.status(error.status || 500).json({ message: error.message });
   next();
