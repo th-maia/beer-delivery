@@ -9,19 +9,22 @@ import OrderDetail from './pages/Order/OrderDetail/OrderDetail';
 import OrderList from './pages/Order/OrderList/OrderList';
 import ProductDetail from './pages/Product/ProductDetail/ProductDetail';
 import ProductList from './pages/Product/ProductList/ProductList';
+import SellerOrderList from './pages/Seller/SellerOrders/SellerOrderList';
+import SellerOrderDetail from './pages/Seller/SellerOrderDetails/SellerOrderDetails';
+import routesCheck from './helpers/Routes.helper';
 
 function App() {
-  // const navigate = useNavigate();
   const { value } = useLocalStorage('user', '');
   const isLogged = !!value && !!value?.token;
+  const [role, setRole] = React.useState('');
 
-  /* React.useEffect(() => {
-    if (isLogged) {
-      navigate('/');
-    } else {
-      navigate('/login');
+  React.useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    if (userInfo) {
+      const route = routesCheck(userInfo?.role);
+      setRole(route);
     }
-  }, []); */
+  }, []);
 
   const appRouter = value?.role === 'administrator'
     ? '/admin/manage'
@@ -35,7 +38,7 @@ function App() {
         path="/"
         element={
           isLogged
-            ? <Navigate to={ appRouter } />
+            ? <Navigate to={ role } />
             : <Navigate to="/login" />
         }
       />
@@ -44,6 +47,8 @@ function App() {
       <Route path="/customer/checkout" element={ <Checkout /> } />
       <Route path="/customer/orders" element={ <OrderList /> } />
       <Route path="/customer/orders/:id" element={ <OrderDetail /> } />
+      <Route path="/seller/orders" element={ <SellerOrderList /> } />
+      <Route path="/seller/orders/:id" element={ <SellerOrderDetail /> } />
       <Route path="/login" element={ <Login /> } />
       <Route path="/register" element={ <Register /> } />
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { login } from '../API/user.API';
 import isUserInputValid from '../helpers/login.helpers';
 import useLocalStorage from '../hooks/useLocalStorage';
+import routesCheck from '../helpers/Routes.helper';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');
@@ -11,22 +12,26 @@ export default function Login() {
   const [loginDisabled, setLoginDisabled] = React.useState(true);
   const { setValue } = useLocalStorage('user', '');
   const navigate = useNavigate();
+  const isLogged = JSON.parse(localStorage.getItem('user'));
 
-  // const { value } = useLocalStorage('user', '');
+  React.useEffect(() => {
+    if (isLogged && isLogged.token) {
+      const route = routesCheck(isLogged?.role);
+      navigate(route);
+    }
+  }, []);
 
   const loginRequest = async () => {
     const response = await login({ email, password });
+    console.log(response);
     if (!response) {
       setAlert(true);
       // const IN_THREE_SECONDS = 3000;
       // setTimeout(() => { setAlert(false); }, IN_THREE_SECONDS);
     } else {
       setValue(response);
-      if (response.role === 'administrator') {
-        navigate('/admin/manage');
-      } else {
-        navigate('/customer/products');
-      }
+      const route = routesCheck(response.role);
+      navigate(route);
     }
   };
 
