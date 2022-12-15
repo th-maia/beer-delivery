@@ -10,6 +10,7 @@ module.exports = {
           model: 'sales',
           key: 'id',
         },
+        onDelete: 'CASCADE',  
       },
       product_id: {
         type: Sequelize.INTEGER,

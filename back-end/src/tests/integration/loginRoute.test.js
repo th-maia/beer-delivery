@@ -5,6 +5,7 @@ const sinon = require('sinon');
 
 const { expect } = require('chai');
 const { describe } = require('mocha');
+const { Model } = require("sequelize");
 
 const app = require('../../api/app')
 const { customerLogin, customerErrorEmail, customerErrorPassword, customerLoginResponse, customerLoginNot } = require('../mocks/login');
@@ -44,6 +45,13 @@ describe('Teste da rota de Login', () => {
         });
     });
     describe('Teste quando o fizer login com sucesso', () => {
+        beforeEach(async () => {
+            sinon
+            .stub(Model, 'findAll')
+            .onFirstCall()
+            .resolves(customerLoginResponse);
+        });
+        afterEach(() => sinon.restore());
         it('Deve retornar o status 200', async () => {
             const httpResponse = await chai
                 .request(app)

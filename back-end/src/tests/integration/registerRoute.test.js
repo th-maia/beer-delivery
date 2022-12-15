@@ -53,6 +53,13 @@ describe('Teste da rota de Register', () => {
         });
     });
     describe('Teste quando o email do usuário ja é cadastrado', () => {
+        beforeEach(async () => {
+            sinon
+            .stub(Model, 'findAll')
+            .onFirstCall()
+            .resolves(clienteAlreadyRegistered);
+        });
+        afterEach(() => sinon.restore());
         it('Deve retornar o status 409 com a mensagem de "EMAIL ALREADY EXIST"', async () => {
             const httpResponse = await chai
                 .request(app)
