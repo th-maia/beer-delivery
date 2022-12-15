@@ -9,10 +9,6 @@ export const userType = [
     value: 'seller',
   },
   {
-    label: 'Administrador',
-    value: 'adminsitrator',
-  },
-  {
     label: 'Cliente',
     value: 'customer',
   },
@@ -25,6 +21,8 @@ const validateRules = {
 };
 
 function UserList() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const [erroMsg, setErroMsg] = React.useState('');
   const [errors, setErrors] = React.useState({
     name: true,
     email: true,
@@ -43,11 +41,16 @@ function UserList() {
     };
     console.log(values);
 
-    api.post('/register', values).then((response) => {
+    await api.post('/adm/register', values, {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
       console.log('Usuário registrado com sucesso');
       console.log(response.data);
     }).catch((error) => {
-      console.error(error);
+      setErroMsg(error.response.data.message);
+      console.error(error.response.data.message);
     });
   };
 
@@ -59,6 +62,11 @@ function UserList() {
     <>
       <Navbar />
       <div>
+        {erroMsg && (
+          <div data-testid="admin_manage__element-invalid-register">
+            {erroMsg}
+          </div>
+        )}
         <form
           style={ { marginTop: 50, display: 'flex' } }
           onSubmit={ handleSubmit }
