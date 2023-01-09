@@ -1,0 +1,61 @@
+.customer_products__element-card {
+    align-items: center;
+    background: rgba(247, 228, 190, 0.62);
+    border: 1px solid #D8A135;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 33px;
+    display: flex;
+    flex-direction: column;
+    height: 370px;
+    justify-content: center;
+    padding: 10px;
+    width: 270px;
+}
+
+.customer_products__img-card-bg-image {
+    align-content: center;
+    background-color: white;
+    border-radius: 33px;
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+    width: 270px;
+    height: 270px;
+}
+
+.customer_products__img-card-bg-image img {
+    border-radius: 33px;
+}
+
+.customer_products__element-card_name-container {
+    display: flex;
+    justify-content: center;
+}
+
+.priceQuantity {
+    display: flex;
+    gap: 80px;
+}
+
+.priceQuantity input {
+    background: rgba(247, 228, 190, 0.62);
+    border: none;
+    text-align: center;
+    width: 25px;
+}
+
+.priceQuantity button {
+    background: rgba(247, 228, 190, 0.62);
+    border: 2px solid #D8A135;
+    border-radius: 100%;
+    text-align: center;
+}
+
+.customer_products__element-card-price {
+    font-weight: bold;
+}
+
+.customer_products__button-card {
+    display: flex;
+    gap: 5px;
+}

@@ -28,16 +28,18 @@ function SellerOrderList() {
       <Navbar
         user="seller"
       />
-      {orders?.map((order) => (
-        <OrderItem
-          key={ order?.id }
-          orderId={ order?.id }
-          status={ order?.status }
-          date={ order?.saleDate }
-          price={ order?.totalPrice }
-          user="seller"
-        />
-      ))}
+      <div className="containerOrder">
+        {orders?.map((order) => (
+          <OrderItem
+            key={ order?.id }
+            orderId={ order?.id }
+            status={ order?.status }
+            date={ order?.saleDate }
+            price={ order?.totalPrice }
+            user="seller"
+          />
+        ))}
+      </div>
     </>
 
   );

@@ -4,6 +4,7 @@ import { login } from '../API/user.API';
 import isUserInputValid from '../helpers/login.helpers';
 import useLocalStorage from '../hooks/useLocalStorage';
 import routesCheck from '../helpers/Routes.helper';
+import './Login.css';
 
 export default function Login() {
   const [email, setEmail] = React.useState('');
@@ -41,45 +42,60 @@ export default function Login() {
   }, [email, password]);
 
   return (
-    <div className="login-page">
-      <label htmlFor="login">
-        Login
-        <input
-          id="login"
-          type="text"
-          value={ email }
-          data-testid="common_login__input-email"
-          onChange={ (e) => setEmail(e.target.value) }
-        />
-      </label>
-      <label htmlFor="senha">
-        Senha
-        <input
-          id="senha"
-          type="password"
-          value={ password }
-          data-testid="common_login__input-password"
-          onChange={ (e) => setPassword(e.target.value) }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="common_login__button-login"
-        disabled={ loginDisabled }
-        onClick={ async () => loginRequest() }
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-        onClick={ () => navigate('/register') }
-      >
-        Ainda não tenho uma conta
-      </button>
-      {showAlert ? (
-        <span data-testid="common_login__element-invalid-email">Usuario invalido</span>
-      ) : null}
+    <div className="login">
+      <div className="logoContainer">
+        <img className="logo" src="https://cdn.discordapp.com/attachments/938669134890278937/1062068447988695141/Logo.png" alt="Logotipo beer delivery" />
+      </div>
+      <div className="login-page">
+        <h1>Login</h1>
+        <div className="inputs-login">
+          <label htmlFor="login">
+            <input
+              id="login"
+              type="text"
+              value={ email }
+              data-testid="common_login__input-email"
+              placeholder="E-mail"
+              onChange={ (e) => setEmail(e.target.value) }
+            />
+          </label>
+          <label htmlFor="senha">
+            <input
+              id="senha"
+              type="password"
+              value={ password }
+              data-testid="common_login__input-password"
+              placeholder="Password"
+              onChange={ (e) => setPassword(e.target.value) }
+            />
+          </label>
+          <button
+            type="button"
+            className="login-button"
+            data-testid="common_login__button-login"
+            disabled={ loginDisabled }
+            onClick={ async () => loginRequest() }
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className="password-button"
+            data-testid="common_login__button-register"
+            onClick={ () => navigate('/register') }
+          >
+            Ainda não tenho uma conta
+          </button>
+        </div>
+        {showAlert ? (
+          <span
+            className="alert"
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuario invalido
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 }

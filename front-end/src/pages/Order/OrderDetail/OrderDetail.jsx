@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import Navbar from '../../../components/Navbar/Navbar';
 import api from '../../../services/api';
 import removeComma from '../../../utils/removeComma';
+import './OrderDetail.css';
 
 const dataid = {
   orderId: 'customer_order_details__element-order-details-label-order-id',
@@ -12,7 +13,6 @@ const dataid = {
   status: 'customer_order_details__element-order-details-label-delivery-status<index>',
   buttonDelivery: 'customer_order_details__button-delivery-check',
   totalPrice: 'customer_order_details__element-order-total-price',
-
   itemId: 'customer_order_details__element-order-table-item-number',
   tableName: 'customer_order_details__element-order-table-name',
   tableQuantity: 'customer_order_details__element-order-table-quantity',
@@ -123,53 +123,54 @@ function OrderDetail() {
 
   React.useEffect(() => {
     console.log('entrou no useeffect do statusorder');
-    console.log('');
     console.log(statusOrder);
   }, [statusOrder]);
 
   if (!orders && !sellers && !orderId) return null;
-
   const dateOrder = orders?.saleDate && new Date(orders?.saleDate);
-  console.log(orderId);
   return (
     <>
       <Navbar
         user="customer"
       />
-      <div>
-        <div>
-          Pedido:
-          <span
-            data-testid={ dataid.orderId }
-          >
-            {orders?.id}
-          </span>
+      <div id="od-header-section">
+        <div id="id-and-seller-div">
+          <div className="order-detail-info">
+            Pedido:
+            <span
+              data-testid={ dataid.orderId }
+            >
+              {orders?.id}
+            </span>
+          </div>
+          <div className="order-detail-info">
+            <span
+              data-testid={ dataid.sellerName }
+            >
+              {sellers?.name}
+            </span>
+          </div>
         </div>
-        <div>
-          <span
-            data-testid={ dataid.sellerName }
-          >
-            {sellers?.name}
-          </span>
-        </div>
-        <div>
+        <div className="order-detail-info" id="order-detail-date">
           <span
             data-testid={ dataid.date }
           >
             {orders?.saleDate && format(dateOrder, 'dd/MM/yyyy')}
           </span>
         </div>
-        <div>
+        <div className="order-detail-info">
           <span
+            id="status-detail"
             data-testid={ dataid.status }
           >
             { statusOrder }
           </span>
         </div>
-        <div>
+        <div className="order-detail-info">
           <button
             disabled={ statusOrder !== 'Em Trânsito' }
             type="button"
+            id="delivered-button"
             value="Entregue"
             data-testid={ dataid.buttonDelivery }
             onClick={ (e) => handleStatusBtn(e.target.value) }
@@ -178,57 +179,72 @@ function OrderDetail() {
           </button>
         </div>
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            {title.map((item) => (
-              <th
-                key={ item.id }
-                align={ item.align }
-                width={ item.width }
-              >
-                {item.title}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {orderId?.map((item, index) => (
-            <tr key={ item.id }>
-              <td data-testid={ `${dataid.itemId}-{index}` }>{ index + 1 }</td>
-              <td data-testid={ `${dataid.tableName}-{index}` }>
-                { getProductById(item.productId)?.name }
-              </td>
-              <td data-testid={ `${dataid.tableQuantity}-{index}` }>
-                {item.quantity}
-              </td>
-              <td data-testid={ `${dataid.tableUnit}-{index}` }>
-                { removeComma(getProductById(item.productId)?.price) }
-              </td>
-              <td data-testid={ `${dataid.tableTotal}-{index}` }>
-                { removeComma(
-                  Number(getProductById(item.productId)?.price).toFixed(2)
-                   * item.quantity,
-                ) }
-              </td>
+      <div className="containerTable">
+        <table>
+          <thead>
+            <tr>
+              {title.map((item) => (
+                <th
+                  key={ item.id }
+                  align={ item.align }
+                  width={ item.width }
+                >
+                  {item.title}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div>
-        <div>
-          <span
-            data-testid={ dataid.totalPrice }
-          >
+          </thead>
+          <tbody className="tableBody">
+            {orderId?.map((item, index) => (
+              <tr key={ item.id }>
+                <td
+                  className="productId"
+                  data-testid={ `${dataid.itemId}-{index}` }
+                >
+                  { index + 1 }
+                </td>
+                <td
+                  className="productName"
+                  data-testid={ `${dataid.tableName}-{index}` }
+                >
+                  { getProductById(item.productId)?.name }
+                </td>
+                <td
+                  className="productQuantity"
+                  data-testid={ `${dataid.tableQuantity}-{index}` }
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  className="productPrice"
+                  data-testid={ `${dataid.tableUnit}-{index}` }
+                >
+                  { removeComma(getProductById(item.productId)?.price) }
+                </td>
+                <td
+                  className="productSubTotal"
+                  data-testid={ `${dataid.tableTotal}-{index}` }
+                >
+                  { removeComma(
+                    Number(getProductById(item.productId)?.price).toFixed(2)
+                    * item.quantity,
+                  ) }
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="containerValue">
+        <div className="colorValue">
+          <span data-testid={ dataid.totalPrice }>
+            Total: R$
+            {' '}
             {removeComma(orders?.totalPrice)}
           </span>
         </div>
       </div>
     </>
-
   );
 }
-
 export default OrderDetail;

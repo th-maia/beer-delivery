@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../../../components/Navbar/Navbar';
 import validateEmail from '../../../utils/validate';
 import api from '../../../services/api';
+import './UserList.css';
 
 export const userType = [
   {
@@ -61,7 +62,7 @@ function UserList() {
   return (
     <>
       <Navbar />
-      <div>
+      <div className="containerInputs">
         {erroMsg && (
           <div data-testid="admin_manage__element-invalid-register">
             {erroMsg}
@@ -102,6 +103,7 @@ function UserList() {
               type="email"
               name="email"
               data-testid="admin_manage__input-email"
+              placeholder="E-mail"
               onChange={ (event) => {
                 const { value } = event.target;
                 const isValid = validateEmail(value);
@@ -125,6 +127,7 @@ function UserList() {
               type="password"
               name="password"
               data-testid="admin_manage__input-password"
+              placeholder="Password"
               onChange={ (event) => {
                 const { value } = event.target;
                 if (value.length >= validateRules.PASSWORD_LENGTH) {
@@ -171,8 +174,7 @@ function UserList() {
               ))}
             </select>
           </div>
-
-          <div>
+          <div className="registerButton">
             <button
               disabled={ errors.email || errors.name || errors.password || errors.role }
               type="submit"
@@ -181,9 +183,7 @@ function UserList() {
               CADASTRAR
             </button>
           </div>
-
         </form>
-
       </div>
     </>
   );

@@ -6,6 +6,7 @@ import useCart from '../../hooks/useCart';
 import removeComma from '../../utils/removeComma';
 import getDateNow from '../../utils/formatDate';
 import api from '../../services/api';
+import './Checkout.css';
 
 const title = [
   { id: 1, title: 'Item', align: 'center', width: '50px' },
@@ -72,9 +73,9 @@ function Checkout() {
       <Navbar
         user="customer"
       />
-      <h1>Finalizar pedido</h1>
+      <h3 className="h3Finale">Finalizar pedido</h3>
       {value ? (
-        <>
+        <div className="tableContainer">
           <table>
             <thead>
               <tr>
@@ -89,11 +90,12 @@ function Checkout() {
                 ))}
               </tr>
             </thead>
-            <tbody>
+            <tbody className="tableBody">
               {getCart()
                 && getCart()?.map((product, index) => (
                   <tr key={ product.id }>
                     <td
+                      className="productId"
                       width="50px"
                       align="center"
                       data-testid={
@@ -103,6 +105,7 @@ function Checkout() {
                       {index + 1}
                     </td>
                     <td
+                      className="productName"
                       width="250px"
                       align="center"
                       data-testid={
@@ -112,6 +115,7 @@ function Checkout() {
                       {product.name}
                     </td>
                     <td
+                      className="productQuantity"
                       width="80px"
                       align="center"
                       data-testid={
@@ -121,6 +125,7 @@ function Checkout() {
                       {product.quantity}
                     </td>
                     <td
+                      className="productPrice"
                       width="150px"
                       align="center"
                       data-testid={
@@ -130,6 +135,7 @@ function Checkout() {
                       {removeComma(parseFloat(product.price).toFixed(2))}
                     </td>
                     <td
+                      className="productTotal"
                       width="80px"
                       align="center"
                       data-testid={
@@ -141,6 +147,7 @@ function Checkout() {
                       )}
                     </td>
                     <td
+                      className="productRemove"
                       width="200px"
                       align="center"
                       style={ {
@@ -151,6 +158,7 @@ function Checkout() {
                       }
                     >
                       <button
+                        className="removeButton"
                         type="button"
                         onClick={ () => removeProductCart(product.id) }
                       >
@@ -161,47 +169,59 @@ function Checkout() {
                 ))}
             </tbody>
           </table>
+          <div className="containerValue">
+            <div className="colorValue">
+              Total: R$
+              {' '}
+              <span data-testid="customer_checkout__element-order-total-price">
+                {getCartTotal()
+                  ? removeComma(parseFloat(getCartTotal()).toFixed(2))
+                  : '00,00'}
+              </span>
+            </div>
+          </div>
           <form style={ { marginTop: 50 } } onSubmit={ handleSubmit }>
-            <div>
-              <select name="sellerId" data-testid="customer_checkout__select-seller">
-                {sellers?.map((option) => (
-                  <option
-                    key={ option?.id }
-                    value={ option?.id }
-                  >
-                    { option?.name }
-                  </option>
-                ))}
-              </select>
+            <h3>Detalhes e endereço para entrega</h3>
+            <div className="containerInputs">
+              <div>
+                <select name="sellerId" data-testid="customer_checkout__select-seller">
+                  {sellers?.map((option) => (
+                    <option
+                      key={ option?.id }
+                      value={ option?.id }
+                    >
+                      { option?.name }
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <input
+                  name="deliveryAddress"
+                  placeholder="Endereço"
+                  type="text"
+                  data-testid="customer_checkout__input-address"
+                />
+              </div>
+              <div>
+                <input
+                  name="deliveryNumber"
+                  placeholder="Número"
+                  type="text"
+                  data-testid="customer_checkout__input-address-number"
+                />
+              </div>
             </div>
-            <div>
-              <input
-                name="deliveryAddress"
-                placeholder="Endereço"
-                type="text"
-                data-testid="customer_checkout__input-address"
-              />
-            </div>
-            <div>
-              <input
-                name="deliveryNumber"
-                placeholder="Número"
-                type="text"
-                data-testid="customer_checkout__input-address-number"
-              />
-            </div>
-            <span data-testid="customer_checkout__element-order-total-price">
-              {getCartTotal()
-                ? removeComma(parseFloat(getCartTotal()).toFixed(2))
-                : '00,00'}
-            </span>
-            <div>
-              <button type="submit" data-testid="customer_checkout__button-submit-order">
+            <div className="checkoutButton">
+              <button
+                type="submit"
+                data-testid="customer_checkout__button-submit-order"
+              >
                 Finalizar pedido
               </button>
             </div>
           </form>
-        </>
+        </div>
 
       )
         : 'Carrinho vazio'}

@@ -1,0 +1,35 @@
+.containerInputs form {
+    display: flex;
+    gap: 10px;
+    align-items: space-around;
+}
+
+.containerInputs input {
+    width: 220px;
+    padding: 7px;
+}
+
+.containerInputs select {
+    width: 100px;
+    padding: 7px;
+}
+
+.checkoutButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.registerButton button {
+    background: #006725;
+    border: none;
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    width: 100px;
+    padding: 9px;
+    text-align: center;
+}
+
+.registerButton button:hover {
+    cursor: pointer;
+}

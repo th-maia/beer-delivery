@@ -5,6 +5,7 @@ import Navbar from '../../../components/Navbar/Navbar';
 import ProductItem from '../../../components/ProductItem/ProductItem';
 import { CartContext } from '../../../context/CartContext';
 import api from '../../../services/api';
+import './ProductList.css';
 
 function ProductList() {
   const { cart, products, setProducts } = React.useContext(CartContext);

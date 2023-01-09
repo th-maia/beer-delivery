@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import Navbar from '../../../components/Navbar/Navbar';
 import api from '../../../services/api';
-// import useCart from '../../../hooks/useCart';
 import removeComma from '../../../utils/removeComma';
+import './SellerOrderDetails.css';
 
 const dataid = {
   orderId: 'seller_order_details__element-order-details-label-order-id',
@@ -30,8 +30,7 @@ const title = [
 ];
 
 function SellerOrderDetail() {
-  const { id } = useParams();/*
-  const { getProductById } = useCart(); */
+  const { id } = useParams();
   const [sellers, setSellers] = React.useState([]);
   const [statusOrder, setStatusOrder] = React.useState('Pendente');
   const [products, setProducts] = React.useState([]);
@@ -134,100 +133,117 @@ function SellerOrderDetail() {
       <Navbar
         user="seller"
       />
-      <div>
-        <div>
-          Pedido:
-          <span
-            data-testid={ dataid.orderId }
-          >
-            {orders?.id}
-          </span>
-        </div>
-        <div>
-          <span
-            data-testid={ dataid.date }
-          >
-            {orders?.saleDate && format(dateOrder, 'dd/MM/yyyy')}
-          </span>
-        </div>
-        <div>
-          <span
-            data-testid={ dataid.status }
-          >
-            { statusOrder }
-          </span>
-        </div>
-        <div>
-          <button
-            disabled={ statusOrder !== 'Pendente' }
-            type="button"
-            value="Preparando"
-            data-testid={ dataid.buttonPreparing }
-            onClick={ (e) => handleStatusBtn(e.target.value) }
-          >
-            Preparar Pedido
-          </button>
-          <button
-            disabled={ statusOrder !== 'Preparando' }
-            type="button"
-            value="Em Trânsito"
-            data-testid={ dataid.buttonDispatch }
-            onClick={ (e) => handleStatusBtn(e.target.value) }
-          >
-            Saiu para entrega
-          </button>
+      <div id="od-header-section-seller">
+        <div id="id-div">
+          <div className="order-detail-info">
+            Pedido:
+            <span
+              data-testid={ dataid.orderId }
+            >
+              {orders?.id}
+            </span>
+          </div>
+          <div className="order-detail-info">
+            <span
+              data-testid={ dataid.date }
+            >
+              {orders?.saleDate && format(dateOrder, 'dd/MM/yyyy')}
+            </span>
+          </div>
+          <div className="order-detail-info">
+            <span
+              data-testid={ dataid.status }
+            >
+              {statusOrder}
+            </span>
+          </div>
+          <div className="order-detail-info">
+            <button
+              disabled={ statusOrder !== 'Pendente' }
+              type="button"
+              value="Preparando"
+              data-testid={ dataid.buttonPreparing }
+              className="delivered-button"
+              onClick={ (e) => handleStatusBtn(e.target.value) }
+            >
+              Preparar Pedido
+            </button>
+            <button
+              className="button-delivery"
+              disabled={ statusOrder !== 'Preparando' }
+              type="button"
+              value="Em Trânsito"
+              data-testid={ dataid.buttonDispatch }
+              onClick={ (e) => handleStatusBtn(e.target.value) }
+            >
+              Saiu para entrega
+            </button>
+          </div>
         </div>
       </div>
-
-      <table>
-        <thead>
-          <tr>
-            {title.map((item) => (
-              <th
-                key={ item.id }
-                align={ item.align }
-                width={ item.width }
-              >
-                {item.title}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {orderId?.map((item, index) => (
-            <tr key={ item.id }>
-              <td data-testid={ `${dataid.itemId}-{index}` }>{ index + 1 }</td>
-              <td data-testid={ `${dataid.tableName}-{index}` }>
-                { getProductById(item.productId)?.name }
-              </td>
-              <td data-testid={ `${dataid.tableQuantity}-{index}` }>
-                {item.quantity}
-              </td>
-              <td data-testid={ `${dataid.tableUnit}-{index}` }>
-                { removeComma(getProductById(item.productId)?.price) }
-              </td>
-              <td data-testid={ `${dataid.tableTotal}-{index}` }>
-                { removeComma(
-                  Number(getProductById(item.productId)?.price).toFixed(2)
-                   * item.quantity,
-                ) }
-              </td>
+      <div className="tableContainer">
+        <table>
+          <thead>
+            <tr>
+              {title.map((item) => (
+                <th
+                  key={ item.id }
+                  align={ item.align }
+                  width={ item.width }
+                >
+                  {item.title}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-
+          </thead>
+          <tbody className="tableBody">
+            {orderId?.map((item, index) => (
+              <tr key={ item.id }>
+                <td data-testid={ `${dataid.itemId}-{index}` } className="productId">
+                  {index + 1}
+                </td>
+                <td data-testid={ `${dataid.tableName}-{index}` } className="productName">
+                  {getProductById(item.productId)?.name}
+                </td>
+                <td
+                  data-testid={ `${dataid.tableQuantity}-{index}` }
+                  className="productQuantity"
+                >
+                  {item.quantity}
+                </td>
+                <td
+                  data-testid={ `${dataid.tableUnit}-{index}` }
+                  className="productPrice"
+                >
+                  {removeComma(getProductById(item.productId)?.price)}
+                </td>
+                <td
+                  data-testid={ `${dataid.tableTotal}-{index}` }
+                  className="productTotal"
+                >
+                  {removeComma(
+                    Number(getProductById(item.productId)?.price).toFixed(2)
+                    * item.quantity,
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div>
-        <div>
+        <div className="containerValue">
           <span
             data-testid={ dataid.totalPrice }
+            className="colorValue"
           >
+            Total: R$
+            {' '}
             {removeComma(orders?.totalPrice)}
           </span>
         </div>
       </div>
     </>
-
   );
 }
 

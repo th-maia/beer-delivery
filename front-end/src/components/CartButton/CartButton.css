@@ -1,0 +1,13 @@
+.cart {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.cartButton {
+    border: none;
+}
+
+.cartButton:hover {
+    cursor: pointer;
+}
