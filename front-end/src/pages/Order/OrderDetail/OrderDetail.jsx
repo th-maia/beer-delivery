@@ -133,8 +133,8 @@ function OrderDetail() {
       <Navbar
         user="customer"
       />
-      <div id="od-header-section">
-        <div id="id-and-seller-div">
+      <div className="od-header-section">
+        <div className="id-and-seller-div">
           <div className="order-detail-info">
             Pedido:
             <span
@@ -151,7 +151,7 @@ function OrderDetail() {
             </span>
           </div>
         </div>
-        <div className="order-detail-info" id="order-detail-date">
+        <div className="order-detail-info order-detail-date">
           <span
             data-testid={ dataid.date }
           >
@@ -160,7 +160,7 @@ function OrderDetail() {
         </div>
         <div className="order-detail-info">
           <span
-            id="status-detail"
+            className="status-detail"
             data-testid={ dataid.status }
           >
             { statusOrder }
@@ -170,7 +170,7 @@ function OrderDetail() {
           <button
             disabled={ statusOrder !== 'Em Trânsito' }
             type="button"
-            id="delivered-button"
+            className="delivered-button"
             value="Entregue"
             data-testid={ dataid.buttonDelivery }
             onClick={ (e) => handleStatusBtn(e.target.value) }

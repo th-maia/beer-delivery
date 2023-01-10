@@ -1,54 +1,52 @@
-#od-header-section {
+.od-header-section {
   display: flex;
   justify-content: space-around;
 }
 
-#id-and-seller-div {
+.id-and-seller-div {
   display: flex;
 }
 
 .order-detail-info {
-  font-family: Poppins;
+  font-family: Poppins , sans-serif;
   font-size: 20px;
   font-style: italic;
-    line-height: 48px;
-  letter-spacing: 0em;
-  text-align: left;
+  letter-spacing: 0;
+  line-height: 48px;
   margin: 10px;
+  text-align: left;
 }
 
-#order-detail-date {
-  font-weight: bolder;
+.order-detail-date {
+  font-weight: 900;
 }
 
-#status-detail {
-  font-family: Poppins;
+.status-detail {
+  align-items: center;
+  display: flex;
+  font-family: Poppins , sans-serif;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
   line-height: 42px;
-  display: flex;
-  align-items: center;
   text-align: center;
 }
 
-#delivered-button {
-  font-family: Poppins;
+.delivered-button {
+  background: #006725;
+  border-radius: 10px;
+  color: white;
+  font-family: Poppins , sans-serif;
   font-size: 15px;
   font-weight: 500;
+  letter-spacing: 0;
   line-height: 30px;
-  letter-spacing: 0em;
   text-align: center;
-  background: #006725;
-  color: white;
-  border-radius: 10px;
 }
 
-#delivered-button:disabled {
+.delivered-button:disabled {
   background: #830000;
 }
-
-/* Part 2 - Tabela */
 
 .containerTable {
   align-content: center;
@@ -58,56 +56,53 @@
 }
 
 .productId {
-  background: #D8A135;
+  background: #d8a135;
   padding: 10px;
-  width: 20px;
-  align: center;
   text-align: center;
+  width: 20px;
 }
 
 .productName {
-  text-align: left;
-  padding-left: 10px;
   padding: 10px;
-  width: 210px;
+  padding-left: 10px;
   text-align: left;
+  width: 210px;
 }
 
 .productQuantity {
-  background: #F4B740;
+  background: #f4b740;
   padding: 10px;
-  width: 10px;
-  align: center;
   text-align: center;
+  width: 10px;
 }
 
 .productPrice {
-  background: #6E7191;
+  background: #6e7191;
   color: white;
   padding: 10px;
-  width: 110px;
   text-align: center;
+  width: 110px;
 }
 
 .productSubTotal {
   background: #774000;
   color: white;
   padding: 10px;
-  width: 80px;
   text-align: center;
+  width: 80px;
 }
 
 .containerValue {
   display: flex;
   justify-content: right;
-  margin-top: 20px;
   margin-right: 20px;
+  margin-top: 20px;
 }
 
 .colorValue {
-  background: #D8A135;
-  color: rgb(255, 255, 255);
-  width: 100px;
+  background: #d8a135;
+  color: white;
   padding: 10px;
   text-align: center;
+  width: 100px;
 }
