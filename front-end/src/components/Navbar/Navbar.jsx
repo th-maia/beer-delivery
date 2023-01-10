@@ -56,7 +56,7 @@ function Navbar({
             navigate('/');
           } }
         >
-          Sair
+          <img src="https://cdn.discordapp.com/attachments/938669134890278937/1062430664856707144/Logout.png " alt="exit" width="20px" />
         </button>
       </div>
       <Outlet />

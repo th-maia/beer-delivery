@@ -1,3 +1,7 @@
+table {
+    font-family: 'Poppins';
+}
+
 .containerInputs form {
     display: flex;
     gap: 10px;
@@ -33,3 +37,12 @@
 .registerButton button:hover {
     cursor: pointer;
 }
+
+.tableContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    padding: 20px;
+    text-align: center;
+}
+

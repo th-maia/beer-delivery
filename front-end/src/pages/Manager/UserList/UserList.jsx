@@ -3,17 +3,8 @@ import Navbar from '../../../components/Navbar/Navbar';
 import validateEmail from '../../../utils/validate';
 import api from '../../../services/api';
 import './UserList.css';
-
-export const userType = [
-  {
-    label: 'Vendedor',
-    value: 'seller',
-  },
-  {
-    label: 'Cliente',
-    value: 'customer',
-  },
-];
+import UserTable from './UserTable';
+import userType from '../../../utils/userTypes';
 
 const validateRules = {
   NAME_LENGTH: 12,
@@ -22,6 +13,7 @@ const validateRules = {
 };
 
 function UserList() {
+  const [users, setUsers] = React.useState([]);
   const user = JSON.parse(localStorage.getItem('user'));
   const [erroMsg, setErroMsg] = React.useState('');
   const [errors, setErrors] = React.useState({
@@ -30,6 +22,18 @@ function UserList() {
     password: true,
     role: true,
   });
+
+  const fetchUsers = async () => {
+    await api.get('/adm', {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      setUsers(response.data);
+    }).catch((error) => {
+      console.error(error.response.data.message);
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,25 +44,44 @@ function UserList() {
       password: form.password.value,
       role: form.role.value,
     };
-    console.log(values);
 
     await api.post('/adm/register', values, {
       headers: {
         authorization: user?.token,
       },
-    }).then((response) => {
+    }).then(() => {
+      fetchUsers();
       console.log('Usuário registrado com sucesso');
-      console.log(response.data);
     }).catch((error) => {
       setErroMsg(error.response.data.message);
       console.error(error.response.data.message);
     });
   };
 
-  React.useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const handleDelete = async (id) => {
+    await api.delete(`/adm/${id}`, {
+      headers: {
+        authorization: user?.token,
+      },
+    }).then((response) => {
+      console.log(response.data);
+      fetchUsers();
+    }).catch((error) => {
+      console.error(error.response.data);
+    });
+  };
 
+  React.useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const titleHead = [
+    { id: 1, title: 'Item', align: 'center', width: '50px' },
+    { id: 2, title: 'Nome', align: 'center', width: '250px' },
+    { id: 3, title: 'Email', align: 'center', width: '80px' },
+    { id: 4, title: 'Tipo', align: 'center', width: '150px' },
+    { id: 5, title: 'Excluir', align: 'center', width: '80px' },
+  ];
   return (
     <>
       <Navbar />
@@ -121,7 +144,6 @@ function UserList() {
               } }
             />
           </div>
-
           <div>
             <input
               type="password"
@@ -144,7 +166,6 @@ function UserList() {
               } }
             />
           </div>
-
           <div>
             <select
               name="role"
@@ -184,6 +205,36 @@ function UserList() {
             </button>
           </div>
         </form>
+      </div>
+      <div className="tableContainer">
+        <table>
+          <thead>
+            <tr>
+              {titleHead.map((item) => (
+                <th
+                  key={ item.id }
+                  align={ item.align }
+                  width={ item.width }
+                >
+                  {item.title}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {users && users?.map((item, index) => (
+              <UserTable
+                key={ item?.id }
+                id={ item?.id }
+                index={ index }
+                name={ item?.name }
+                email={ item?.email }
+                role={ item?.role }
+                handleDelete={ handleDelete }
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );
