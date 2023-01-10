@@ -133,8 +133,8 @@ function SellerOrderDetail() {
       <Navbar
         user="seller"
       />
-      <div id="od-header-section-seller">
-        <div id="id-div">
+      <div className="od-header-section-seller">
+        <div className="id-div">
           <div className="order-detail-info">
             Pedido:
             <span

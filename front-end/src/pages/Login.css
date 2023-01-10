@@ -1,74 +1,74 @@
 .login {
-    align-items: center;
-    display: flex;
-    font-family: 'Poppins';
-    height: 100vh;
-    justify-content: space-between;
-    width: 100%;
+  align-items: center;
+  display: flex;
+  font-family: Poppins , sans-serif;
+  height: 100vh;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .login-page {
-    align-items: center;
-    background: #F4B740;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 50vw;
-    justify-content: center;
+  align-items: center;
+  background: #f4b740;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  width: 50vw;
 }
 
 .logoContainer {
-    text-align: center;
+  text-align: center;
 }
 
 .login-page h1 {
-    font-weight: 1500;
+  font-weight: 1500;
 }
 
 .inputs-login {
-    align-items: center;
-    background: rgba(132, 132, 132, 0.44);
-    border-radius: 36px;
-    display: flex;
-    flex-direction: column;
-    height: 50%;
-    margin: 60px;
-    margin-top: 5px;
-    justify-content: space-around;
-    padding: 50px 70px;
-    width: 30%;
+  align-items: center;
+  background: rgba(132, 132, 132, 0.44);
+  border-radius: 36px;
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: space-around;
+  margin: 60px;
+  margin-top: 5px;
+  padding: 50px 70px;
+  width: 30%;
 }
 
 .inputs-login input {
-    background: #EFF0F7;
-    border: none;
-    border-radius: 16px;
-    padding: 15px;
-    width: 90%;
+  background: #eff0f7;
+  border: none;
+  border-radius: 16px;
+  padding: 15px;
+  width: 90%;
 }
 
 .login-button {
-    background: #F4B740;
-    border: none;
-    border-radius: 20px;
-    color: #424242;
-    padding: 15px;
-    width: 120px;;
+  background: #f4b740;
+  border: none;
+  border-radius: 20px;
+  color: #424242;
+  padding: 15px;
+  width: 120px;
 }
 
 .password-button {
-    background: #f4b84000;
-    border: 1px solid #774000;
-    border-radius: 20px;
-    color: #774000;
-    padding: 15px;
-    width: 120px;
+  background: #f4b84000;
+  border: 1px solid #774000;
+  border-radius: 20px;
+  color: #774000;
+  padding: 15px;
+  width: 120px;
 }
 
 .alert {
-    color: #830000;
+  color: #830000;
 }
 
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
