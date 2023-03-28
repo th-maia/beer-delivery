@@ -51,11 +51,11 @@ A aplicação inicia com a tela de login.
   </details>
 
 ## Para ter acesso após o login poderá usar os logins que já estão no banco de dados MySQL.
-  cliente- login: `zebirita@email.com`   senha: `$#zebirita#$`
+  <strong>cliente</strong>- login: `zebirita@email.com`   senha: `$#zebirita#$`
 
-  vendedor- login: `fulana@deliveryapp.com`   senha: `fulana@123`
+  <strong>vendedor</strong>- login: `fulana@deliveryapp.com`   senha: `fulana@123`
 
-  administrador- `login: adm@deliveryapp.com`   senha: `--adm2@21!!--`
+  <strong>administrador</strong>- `login: adm@deliveryapp.com`   senha: `--adm2@21!!--`
  
   As senhas que estão no banco de dados estão salvas com hash md5.
 
