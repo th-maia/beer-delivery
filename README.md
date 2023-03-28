@@ -19,9 +19,9 @@ A aplicação inicia com a tela de login.
     <summary>
       <strong>telas para o cliente</strong>
     </summary>
-      (./assets/readme/customer-screen.png)
-      (./assets/readme/customer-screen2.png)
-      (./assets/readme/customer-screen3.png)
+      !(./assets/readme/customer-screen.png)
+      !(./assets/readme/customer-screen2.png)
+      !(./assets/readme/customer-screen3.png)
   </details>
   
 - vendedores- permite as empresas parceiras(vendedor) visualizarem os pedidos feitos pelos clientes.
@@ -29,21 +29,21 @@ A aplicação inicia com a tela de login.
     <summary>
       <strong>telas para o vendedor</strong>
     </summary><br>
-      (./assets/readme/seller-screen.png)
-      (./assets/readme/seller-screen2.png)
+      !(./assets/readme/seller-screen.png)
+      !(./assets/readme/seller-screen2.png)
   </details>
 - administradores- uma para a empresa Beer Delivery poder administrar os seus usuarios cadastrados, tanto empresas parceiras quanto clientes, podendo adicionar ou remover.
   <details>
     <summary>
       <strong>telas para o adminstrador</strong>
     </summary><br>
-      (./assets/readme/administrator-screen.png)
+      !(./assets/readme/administrator-screen.png)
   </details>
 
-# Para ter acesso após o login poderá usar os logins que já estão no banco de dados MySQL.
- cliente- login: zebirita@email.com   senha: $#zebirita#$
- vendedor- login: fulana@deliveryapp.com   senha: fulana@123
- administrador- login: adm@deliveryapp.com   senha: --adm2@21!!--
+## Para ter acesso após o login poderá usar os logins que já estão no banco de dados MySQL.
+ cliente- login: `zebirita@email.com`   senha: `$#zebirita#$`
+ vendedor- login: `fulana@deliveryapp.com`   senha: `fulana@123`
+ administrador- `login: adm@deliveryapp.com`   senha: `--adm2@21!!--`
  
  As senhas que estão no banco de dados estão salvas com hash md5
  (./assets/readme/usuarios-bd.png)
