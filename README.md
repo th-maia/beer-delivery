@@ -112,7 +112,7 @@ A aplicação inicia com a tela de login.
   - Para isso, use o seguinte comando: `npm install`, 
       caso dê algum erro tente rodar novamente o comando acima, pode ocorrer por diferentes versões ou pacotes que foram instalados após outros.
   
-  3. Crie as configações de ambiente do banco de dados, para isso crie o arquivo `.env` dentro da pasta `back-end` para as configurações do seu usuario e senha do MYSQL da sua maquina, mundando <strong>MYSQL_USER</strong> e o <strong>MYSQL_PASSWORD</strong> para os do seu usuario MYSQL. como na imagem abaixo.
+  3. Crie as configações de ambiente do banco de dados, para isso crie o arquivo `.env` dentro da pasta `back-end` para as configurações do seu usuario e senha do MYSQL da sua maquina, mundando <strong>MYSQL_USER</strong> e o <strong>MYSQL_PASSWORD</strong> para os do seu usuario MYSQL na sua maquina local. como na imagem abaixo.
   
   ![db-enviroment](./assets/readme/db-enviroment.png)
 
