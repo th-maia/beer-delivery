@@ -19,9 +19,13 @@ A aplicação inicia com a tela de login.
     <summary>
       <strong>telas para o cliente</strong>
     </summary>
+
       ![customer-screen](./assets/readme/customer-screen.png)
+
       ![customer-screen2](./assets/readme/customer-screen2.png)
+
       ![customer-screen3](./assets/readme/customer-screen3.png)
+      
   </details>
   
 - vendedores- permite as empresas parceiras(vendedor) visualizarem os pedidos feitos pelos clientes.
