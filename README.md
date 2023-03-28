@@ -14,17 +14,17 @@ A aplicação inicia com a tela de login.
 
 <strong>A aplicação é dividida em 3 espaços após o login, um para cada tipo de usuario: </strong>
 
-- clientes- fazerem os pedidos, que serão adicionados aos carrinhos e finalizarem o pedido.clique no simbolo de "+" nos produtos aparecerá um "carrinho" no canto inferior direito, clique nele e poderá finalizar o seu pedido, após isso poderá ver o seu pedido na parte superior da tela em "meus pedidos".
+- <strong>clientes</strong>- fazerem os pedidos, que serão adicionados aos carrinhos e finalizarem o pedido.clique no simbolo de "+" nos produtos aparecerá um "carrinho" no canto inferior direito, clique nele e poderá finalizar o seu pedido, após isso poderá ver o seu pedido na parte superior da tela em "meus pedidos".
   <details>
     <summary>
       <strong>telas para o cliente</strong>
     </summary><br>
 
-![customer-screen](./assets/readme/customerscreen.png)
+  ![customer-screen](./assets/readme/customerscreen.png)
 
-![customer-screen2](./assets/readme/customer-screen2.png)
+  ![customer-screen2](./assets/readme/customer-screen2.png)
 
-![customer-screen3](./assets/readme/customer-screen3.png)
+  ![customer-screen3](./assets/readme/customer-screen3.png)
 
   </details>
   
@@ -33,15 +33,15 @@ A aplicação inicia com a tela de login.
     <summary>
       <strong>telas para o vendedor</strong>
     </summary><br>
-      !(./assets/readme/seller-screen.png)
-      !(./assets/readme/seller-screen2.png)
+    ![seller-screen](./assets/readme/seller-screen.png)
+    ![seller-screen2](./assets/readme/seller-screen2.png)
   </details>
 - administradores- uma para a empresa Beer Delivery poder administrar os seus usuarios cadastrados, tanto empresas parceiras quanto clientes, podendo adicionar ou remover.
   <details>
     <summary>
       <strong>telas para o adminstrador</strong>
     </summary><br>
-      !(./assets/readme/administrator-screen.png)
+    ![administrator-screen](./assets/readme/administrator-screen.png)
   </details>
 
 ## Para ter acesso após o login poderá usar os logins que já estão no banco de dados MySQL.
