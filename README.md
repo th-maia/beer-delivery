@@ -57,8 +57,9 @@ A aplicação inicia com a tela de login.
 
   administrador- `login: adm@deliveryapp.com`   senha: `--adm2@21!!--`
  
-  As senhas que estão no banco de dados estão salvas com hash md5
- (./assets/readme/usuarios-bd.png)
+  As senhas que estão no banco de dados estão salvas com hash md5.
+
+ ![usuarios-bd](./assets/readme/usuarios-bd.png)
 
 ## Caso queria adiconar um usuario para logar
   pelo botão "não tenho uma conta" na tela de login poderá criar um novo usuário para logar, 
