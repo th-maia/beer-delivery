@@ -12,16 +12,16 @@ O MySQL estar instalado na maquina para rodar o back-end e permitir o acesso de 
 A aplicação inicia com a tela de login.
 (./assets/readme/beer-delivery-login.png)
 
-<strong>A aplicação é dividida após o login em 3 espaços, um para cada tipo de usuario: </strong>
+<strong>A aplicação é dividida em 3 espaços após o login, um para cada tipo de usuario: </strong>
 
 - clientes- fazerem os pedidos, que serão adicionados aos carrinhos e finalizarem o pedido.clique no simbolo de "+" nos produtos aparecerá um "carrinho" no canto inferior direito, clique nele e poderá finalizar o seu pedido, após isso poderá ver o seu pedido na parte superior da tela em "meus pedidos".
   <details>
     <summary>
       <strong>telas para o cliente</strong>
     </summary>
-      !(./assets/readme/customer-screen.png)
-      !(./assets/readme/customer-screen2.png)
-      !(./assets/readme/customer-screen3.png)
+      ![customer-screen](./assets/readme/customer-screen.png)
+      ![customer-screen2](./assets/readme/customer-screen2.png)
+      ![customer-screen3](./assets/readme/customer-screen3.png)
   </details>
   
 - vendedores- permite as empresas parceiras(vendedor) visualizarem os pedidos feitos pelos clientes.
@@ -41,11 +41,13 @@ A aplicação inicia com a tela de login.
   </details>
 
 ## Para ter acesso após o login poderá usar os logins que já estão no banco de dados MySQL.
- cliente- login: `zebirita@email.com`   senha: `$#zebirita#$`
- vendedor- login: `fulana@deliveryapp.com`   senha: `fulana@123`
- administrador- `login: adm@deliveryapp.com`   senha: `--adm2@21!!--`
+  cliente- login: `zebirita@email.com`   senha: `$#zebirita#$`
+
+  vendedor- login: `fulana@deliveryapp.com`   senha: `fulana@123`
+
+  administrador- `login: adm@deliveryapp.com`   senha: `--adm2@21!!--`
  
- As senhas que estão no banco de dados estão salvas com hash md5
+  As senhas que estão no banco de dados estão salvas com hash md5
  (./assets/readme/usuarios-bd.png)
 
 ## Caso queria adiconar um usuario para logar
