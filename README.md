@@ -17,10 +17,6 @@ A aplicação inicia com a <strong>tela de Login</strong>.
 **A aplicação é dividida em 3 espaços após o login, um para cada tipo de usuario:**
 
 - <strong>clientes</strong>- espaço para os clientes fazerem os pedidos, que serão adicionados aos carrinhos e finalizarem o pedido. para adicionar produtos ao seu carrinho clique no simbolo de "+" nos produtos e aparecerá um "carrinho" no canto inferior direito, clique nele, preencha quem irá fazer a entrega e o endereço e numero e poderá finalizar o seu pedido, após isso poderá ver o seu pedido na parte superior da tela em "meus pedidos".
-  <details>
-    <summary>
-      <strong>telas para o cliente</strong>
-    </summary><br>
 
   ![customer-screen](./assets/readme/customerscreen.png)
 
@@ -66,10 +62,9 @@ A aplicação inicia com a <strong>tela de Login</strong>.
   pelo botão "não tenho uma conta" na tela de login poderá criar um novo usuário para logar, 
   ao criar um novo usuario deverá respeitar.
 - A senha recebe qualquer tipo de caractere;
-- Aqui, os critérios para considerar os dados mal formatados são:
-- Nome completo com número de caracteres maior que 12.
-- Email incompleto, fora de um padrão comum: <email>@<domínioPrincipal>.<domínioGenérico>;
-- Senha com número de caracteres maior que 6.
+- Nome completo com número de caracteres maior que 11.
+- Email deve estar em um padrão comum: <email>@<domínioPrincipal>.<domínioGenérico>;
+- Senha com número de caracteres maior que 5.
 
 <details>
   <summary>
