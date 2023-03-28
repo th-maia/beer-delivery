@@ -6,16 +6,17 @@ Esta projeto simula uma aplicação estilo ifood sendo que para pedidos de bebid
 
 A aplicação Beer Delivery trabalha com empresas parceiras(vendedor) das quais os clientes fazem seus pedidos e o empresa parceira(vendedor) é acionada para realizar a entrega.
 
-A aplicação é completa com front-end, back-end, incluindo banco de dados MYSQL. 
-O MySQL estar instalado na maquina para rodar o back-end e permitir o acesso de login do usuario.
+A aplicação é completa com <strong>front-end</strong>, <strong>back-end</strong>, incluindo banco de dados MYSQL. 
 
-A aplicação inicia com a tela de login.
+O <strong>MySQL</strong> esta instalado na máquina para rodar o back-end e permitir o acesso de login do usuario.
+
+A aplicação inicia com a <strong>tela de Login</strong>.
 
 ![beer-delivery-login](./assets/readme/beer-delivery-login.png)
 
 **A aplicação é dividida em 3 espaços após o login, um para cada tipo de usuario:**
 
-- <strong>clientes</strong>- fazerem os pedidos, que serão adicionados aos carrinhos e finalizarem o pedido.clique no simbolo de "+" nos produtos aparecerá um "carrinho" no canto inferior direito, clique nele e poderá finalizar o seu pedido, após isso poderá ver o seu pedido na parte superior da tela em "meus pedidos".
+- <strong>clientes</strong>- espaço para os clientes fazerem os pedidos, que serão adicionados aos carrinhos e finalizarem o pedido. para adicionar produtos ao seu carrinho clique no simbolo de "+" nos produtos e aparecerá um "carrinho" no canto inferior direito, clique nele, preencha quem irá fazer a entrega e o endereço e numero e poderá finalizar o seu pedido, após isso poderá ver o seu pedido na parte superior da tela em "meus pedidos".
   <details>
     <summary>
       <strong>telas para o cliente</strong>
@@ -29,7 +30,7 @@ A aplicação inicia com a tela de login.
 
   </details>
   
-- <strong>vendedores</strong>- permite as empresas parceiras(vendedor) visualizarem os pedidos feitos pelos clientes.
+- <strong>vendedores</strong>- permite as empresas parceiras(vendedor) visualizarem os pedidos feitos pelos clientes e seus status e modifica-los.
   <details>
     <summary>
       <strong>telas para o vendedor</strong>
@@ -40,7 +41,7 @@ A aplicação inicia com a tela de login.
     ![seller-screen2](./assets/readme/seller-screen2.png)
 
   </details>
-- <strong>administradores</strong>- uma para a empresa Beer Delivery poder administrar os seus usuarios cadastrados, tanto empresas parceiras quanto clientes, podendo adicionar ou remover.
+- <strong>administradores</strong>- espaço para a empresa Beer Delivery poder administrar os seus usuarios cadastrados, tanto empresas parceiras quanto clientes, podendo adicionar ou remover.
   <details>
     <summary>
       <strong>telas para o adminstrador</strong>
@@ -50,7 +51,7 @@ A aplicação inicia com a tela de login.
 
   </details>
 
-## Para ter acesso após o login poderá usar os logins que já estão no banco de dados MySQL.
+## Para realizar o login e ter acesso a alicação poderá usar os logins que já estão no banco de dados MySQL.
   <strong>cliente</strong>- login: `zebirita@email.com`   senha: `$#zebirita#$`
 
   <strong>vendedor</strong>- login: `fulana@deliveryapp.com`   senha: `fulana@123`
@@ -72,7 +73,7 @@ A aplicação inicia com a tela de login.
 
 <details>
   <summary>
-    <strong>‼️ caso prático da aplicação !!</strong>
+    <strong>‼️ caso prático para qual a aplicação foi desenvolvida !!</strong>
   </summary><br>
   **Neste projeto, seu grupo deve desenvolver um app de delivery para uma distribuidora de bebidas. Veja abaixo o contexto da entrega que deve ser feita:**
 
@@ -131,7 +132,7 @@ A aplicação inicia com a tela de login.
   MYSQL_DB_NAME=delivery-app
 
   EVAL_ALWAYS_RESTORE_DEV_DB=true
-  
+
 
   4. ative o mysql com o comando: `sudo systemctl start mysql`.
       verifique se o mysql esta ativo com o `sudo systemctl status mysql`, saia com "q"
@@ -143,8 +144,6 @@ A aplicação inicia com a tela de login.
       provavelmente você não ativou MYSQL corretamente, no passo 4
 
   6. quando quiser parar a aplicação rode o `npm stop`
-
-</details>
 
 
 <details>
@@ -224,8 +223,6 @@ A aplicação inicia com a tela de login.
   -  Se não houver problema no seu código, nada será impresso no seu terminal.
 
   ⚠️ **Importante**: o Stylelint é aplicável apenas no front-end.
-
-  > ⚠️ **Importante**: Pull Requests com issues de Linter não serão avaliadas. Atente-se para resolvê-las antes de finalizar o desenvolvimento.
 
 </details>
 
