@@ -117,13 +117,21 @@ A aplicação inicia com a tela de login.
   ![db-enviroment](./assets/readme/db-enviroment.png)
 
   NODE_ENV=development
+
   API_PORT=3001
+
   MYSQL_HOST=localhost
+
   MYSQL_PORT=3306
+
   MYSQL_USER=root
+
   MYSQL_PASSWORD=12345678
+
   MYSQL_DB_NAME=delivery-app
+
   EVAL_ALWAYS_RESTORE_DEV_DB=true
+  
 
   4. ative o mysql com o comando: `sudo systemctl start mysql`.
       verifique se o mysql esta ativo com o `sudo systemctl status mysql`, saia com "q"
