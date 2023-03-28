@@ -99,34 +99,31 @@ A aplicação inicia com a tela de login.
 </details>
 
 
-# Orientações
-
-<details>
-  <summary>
-    <strong>‼️ instalando este projeto !!</strong>
-  </summary><br>
+# Orientações de INSTALAÇÃO DO PROJETO
 
   1. Clone o repositório
-  - entre na pasta que deseja instalar e abra o terminal.
+  - Entre na pasta que deseja instalar no terminal.
   - Use o comando: `git clone git@github.com:th-maia/beer-delivery.git`.
   - Entre na pasta do repositório que você acabou de clonar:
-    - `cd sd-021-b-project-delivery-app`
-  - Vá para a branch main caso não esteja, `git checkout main`.
+    - `cd beer-delivery`
 
   2. Instale as dependências
 
   - Para isso, use o seguinte comando: `npm install`, 
       caso dê algum erro tente rodar novamente o comando acima, pode ocorrer por diferentes versões ou pacotes que foram instalados após outros.
   
-  3. Execute arrume as configações do banco de dados no arquivo ".env" na pasta back-end para as do seu usuario e senha do MYSQL da sua maquina, mundando MYSQL_USER e o MYSQL_PASSWORD
-     (./assets/readme/db-enviroment.png)
+  3. Crie as configações de ambiente do banco de dados, para isso crie o arquivo `.env` dentro da pasta `back-end` para as configurações do seu usuario e senha do MYSQL da sua maquina, mundando <strong>MYSQL_USER</strong> e o <strong>MYSQL_PASSWORD</strong> para os do seu usuario MYSQL. como na imagem abaixo.
+  
+  ![db-enviroment](./assets/readme/db-enviroment.png)
 
   4. ative o mysql com o comando: `sudo systemctl start mysql`.
-      verifique se o mysql esta ativo com o `sudo systemctl status mysql`
+      verifique se o mysql esta ativo com o `sudo systemctl status mysql`, saia com "q"
   
   5. rode o comando para iniciar a aplicação: `npm start`
-      este comando demora alguns minutos, se tudo der certo irá aparecer a pagina web. 
-      se aparecer um erro `ERROR: connect ECONNREFUSED 127.0.0.1:3306` provavelmente você não configurou MYSQL corretamente, no passo 3 ou não executou o passo 4 corretamente.
+      este comando demora alguns minutos, se tudo der certo irá aparecer a pagina web.
+      se aparecer o erro `ERROR: Access denied for user 'root'@'localhost'`, vocẽ não deve ter criado o arquivo ".env" no passo 3 corretamente.
+      se aparecer um erro `ERROR: connect ECONNREFUSED 127.0.0.1:3306`,
+      provavelmente você não ativou MYSQL corretamente, no passo 4
 
   6. quando quiser parar a aplicação rode o `npm stop`
 
@@ -181,7 +178,7 @@ A aplicação inicia com a tela de login.
 
   ## ESLint
 
-  Para fazer a análise estática do seu código neste projeto, vamos utilizar o linter [ESLint](https://eslint.org/). Assim o código estará alinhado com as boas práticas de desenvolvimento, sendo mais legível e de fácil manutenção!
+  Para fazer a análise estática desse código neste projeto, vamos utilizamos o linter [ESLint](https://eslint.org/). Assim o código estará alinhado com as boas práticas de desenvolvimento, sendo mais legível e de fácil manutenção!
 
   ➡️ Este projeto já vem com as dependências relacionadas ao _linter_ configuradas nos arquivos `package.json` nos seguintes caminhos:
     - `sd-021-b-project-delivery-app/back-end/package.json`
@@ -198,7 +195,7 @@ A aplicação inicia com a tela de login.
 
   ## StyleLint
 
-  ➡️ Usaremos também o [StyleLint](https://stylelint.io/) para fazer a análise estática do seu código, especialmente em Front-end. 
+  ➡️ Usaros também o [StyleLint](https://stylelint.io/) para fazer a análise estática do seu código, especialmente em Front-end. 
 
   ➡️ Para poder rodar o `StyleLint` em um projeto basta:
 
@@ -224,19 +221,3 @@ A aplicação inicia com a tela de login.
 
   Para o banco de dados, utilizamos o ORM `Sequelize`, que fará interface com o `MySQL`.
   - O [Diagrama de ER](./assets/readme/eer.png) também pode ajudar a "visualizar" o banco de dados;
-
-  ## Sequelize
-
-  ⚠️ **A configuração do sequelize pode ser considerado o requisito zero do projeto**, dado que a maior parte dos testes dependem da estrutura de alguma tabela para realização de testes, **portanto, deve ser feita primeiro**.
-
-  ⚠️ Antes de iniciar o projeto, garanta que o Sequelize roda corretamente no `./back-end` (pela raiz do projeto, o comando `npm run db:reset` será de grande ajuda, pois serve para restaurar o banco de dados `-dev`). O avaliador vai executar funções do sequelize para garantir a estrutura do banco de dados.
-
-  O projeto já provê uma estrutura inicializada do ORM (em `./back-end/src/database`). Aqui, é necessário que você desenvolva as **migrations** e **seeders** corretamente, seguindo o modelo em `./db.example.sql` (esse arquivo serve como referência, e não tem qualquer influência sobre a aplicação ou avaliação).
-
-  ⚠️ O avaliador usará valores `default` no arquivo `./back-end/src/database/config/config.js`, que já vem no projeto caso nada seja definido. Portanto, tome cuidado na hora de fazer qualquer alteração nesse arquivo, pois é através dele que o avaliador utilizará as referências do banco de dados correto para cada situação (desenvolvimento e testes).
-
-  - Esse projeto fornece por padrão o arquivo `.sequelizerc` em `.back-end` para configurações do padrão de pastas no Sequelize.
-
-  - **Opcionalmente no desenvolvimento local, você pode alterar o valor `EVAL_ALWAYS_RESTORE_DEV_DB` do arquivo `.env` em `./back-end` para `false`**, o que persistirá os dados dos testes locais durante os mesmos. Essa opção pode gerar implicações para a performance e confiabilidade do teste local, já que o avaliador pode se comportar mal caso haja uma quantidade grande de registros para avaliar. Caso ocorra algum problema, utilize o comando `npm run db:reset` ou `npm run db:reset:debug` (para encontrar erros) pela raiz do projeto para restaurar o banco, ou altere de volta a opção `EVAL_ALWAYS_RESTORE_DEV_DB` para `true`.
-
-</details>
