@@ -6,7 +6,7 @@ Esta projeto simula uma aplicação estilo ifood sendo que para pedidos de bebid
 
 A aplicação Beer Delivery trabalha com empresas parceiras(vendedor) das quais os clientes fazem seus pedidos e o empresa parceira(vendedor) é acionada para realizar a entrega.
 
-A aplicação é completa com <strong>front-end</strong>, <strong>back-end</strong>, incluindo banco de dados MYSQL. 
+A aplicação é completa com <strong>front-end</strong>, <strong>back-end</strong>, incluindo banco de dados MYSQL e uso do Sequelize. 
 
 O <strong>MySQL</strong> esta instalado na máquina para rodar o back-end e permitir o acesso de login do usuario.
 
